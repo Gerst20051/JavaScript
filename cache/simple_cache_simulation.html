@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Simple Cache Simpulation</title>
+</head>
+<body>
+<input id="input" type="text" placeholder="Next Cache Value"/>
+<h1>Output</h1>
+<div id="stats"></div><br/>
+<div id="output"></div>
+<script>
+// Simple Cache Simulation
+
+var cache = [], maxSize = 4, hits = 0, misses = 0;
+
+function init(){
+    var iterations = 150;
+    while (iterations--) {
+        insert(Math.random() * 10 | 0);
+    }
+    updateStats();
+}
+
+init();
+
+function has(key){
+	return -1 < cache.indexOf(key);
+}
+
+function insert(key){
+	if (has(key)) { // hit
+		cache.splice(cache.indexOf(key), 1);
+		cache.unshift(key);
+		hits++;
+	} else { // miss
+		if (0 < maxSize && cache.length == maxSize) {
+			cache.pop();
+		}
+		cache.unshift(key);
+		misses++;
+	}
+    prepend(document.getElementById('output'), cache);
+}
+
+function updateStats(){
+    document.getElementById('stats').innerText = "Hits: "+hits+" Misses: "+misses+" Percent Hit: "+((hits/(hits+misses))*100).toFixed(1)+"%";   
+}
+
+function prepend(target, content){
+    var row = document.createElement('div');
+    row.innerText = content;
+    target.innerHTML = row.outerHTML + target.innerHTML;
+}
+
+var input = document.getElementById('input');
+input.addEventListener('keydown', function(e){
+    var key = e.keyCode || e.which;
+    if (key == 13) {
+        insert(input.value);
+        input.value = "";
+        updateStats();
+    }
+}, false);
+</script>
+</body>
+</html>
