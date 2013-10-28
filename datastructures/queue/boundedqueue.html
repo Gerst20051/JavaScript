@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Bounded Cache</title>
+</head>
+<body>
+Check Console for Output
+<script>
+function BoundedQueue(size){
+	var A = [], count = 0;
+
+	this.isInt = function(x){
+		return x === +x && x === (x|0);
+	};
+
+	this.isFull = function(){
+		return count === size;
+	};
+
+	this.isEmpty = function(){
+		return count === 0;
+	};
+
+	this.getCount = function(){
+		return count;
+	};
+
+	this.getSize = function(){
+		return size;
+	};
+
+	this.insert = function(x){
+		if (!this.isFull() && this.isInt(x)) {
+			A[count++] = x;
+		}
+	};
+
+	this.popFirst = function(){
+		var first;
+
+		if (!this.isEmpty()) {
+			first = A[0];
+			for (var i = 0, l = count--; i < l; i++) {
+				A[i] = A[i+1];
+			}
+			return first;
+		}
+	};
+}
+
+BoundedQueue.prototype.enqueue = function(digit){
+	this.insert(digit);
+};
+
+BoundedQueue.prototype.dequeue = function(){
+	return this.popFirst();
+};
+
+var queue = new BoundedQueue(100);
+
+function testQueue(){
+	var testqueue = new BoundedQueue(10);
+	var digits = [6, 5, 0, 2, 3, 3, 2, 7, 5, 0, 0, 0];
+
+	console.log("Size", testqueue.getSize());
+
+	for (var i = 0; i < digits.length; i++) {
+		testqueue.enqueue(digits[i]);
+	}
+
+	for (i = 0, l = testqueue.getCount(); i < l; i++) {
+		console.log(testqueue.dequeue());
+	}
+}
+
+testQueue();
+</script>
+</body>
+</html>
