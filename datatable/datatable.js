@@ -32,13 +32,9 @@ var DataTable = function(){
 	this.config = function(selector, options){
 		this.selector = selector || "";
 		this.options = options || {};
-		return this;
-	};
-
-	this.init = function(){
 		this.attachHandlers();
 		this.parseOptions();
-		this.run();
+		return this;
 	};
 
 	this.run = function(){
@@ -127,8 +123,7 @@ DataTable.prototype.setData = function(data){
 };
 
 DataTable.prototype.updateData = function(data){
-	this.setData(data);
-	this.run();
+	this.setData(data).run();
 };
 
 DataTable.prototype.makeTable = function(){

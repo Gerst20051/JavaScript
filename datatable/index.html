@@ -208,12 +208,12 @@ var data = [
 ];
 
 var datatable = new DataTable();
-datatable.config("#datatable").setData(data).init();
+datatable.config("#datatable").updateData(data);
 
 var datatable2 = new DataTable();
 datatable2.config("#datatable2", {
     "goodkeys": ["id", "balance", "company", "location"]
-}).setData(data).init();
+}).setData(data).run();
 
 /*
 datatable.setPrimers({
