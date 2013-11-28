@@ -10,9 +10,11 @@ var sort_by = function(field, reverse, primer){
 };
 
 var DataTable = function(data){
-	this.data = {};
-	this.sortedData = {};
-	this.headers = [];
+	this.data = {}; // original (unsorted) data
+	this.filteredData = {}; // this.data without objects and arrays (this is used not this.data)
+	this.sortedData = {}; // this.filteredData sorted according to this.sortField
+	this.primers = {}; // primer function for data keys
+	this.headers = []; // values of keys that act as headers in table
 	this.isSort = false;
 	this.isReverse = false;
 	this.sortField = "";
@@ -22,8 +24,15 @@ var DataTable = function(data){
 	this.init = function(selector){
 		this.data = data;
 		this.selector = selector;
+		this.run();
+	};
+
+	this.run = function(){
+		this.filterData();
 		this.getHeaders();
 		this.sortData();
+		this.makeTable();
+		this.insertTable();
 		this.attachHandlers();
 	};
 
@@ -32,22 +41,12 @@ var DataTable = function(data){
 	};
 };
 
-DataTable.prototype.sortData = function(){
-	if (this.isSort) {
-
-	}
+DataTable.prototype.setPrimers = function(primers){
+	this.primers = primers;
 };
 
-DataTable.prototype.updateData = function(data){
-	this.data = data;
-};
+DataTable.prototype.filterData = function(){
 
-DataTable.prototype.parseData = function(){
-
-};
-
-DataTable.prototype.reverse = function(){
-	this.isReverse = !this.isReverse;
 };
 
 DataTable.prototype.getHeaders = function(){
@@ -56,24 +55,57 @@ DataTable.prototype.getHeaders = function(){
 	// filter out objects and arrays
 };
 
+DataTable.prototype.sortData = function(){
+	var data;
+	if (this.isSort && this.sortField.length) {
+		data = this.filteredData;
+		this.sortedData = data.sort(sort_by(this.sortField, this.isReverse));
+	}
+};
+
+DataTable.prototype.reverse = function(){
+	this.isReverse = !this.isReverse;
+};
+
+DataTable.prototype.updateData = function(data){
+	this.data = data;
+	this.run();
+};
+
+DataTable.prototype.parseData = function(){
+
+};
+
 DataTable.prototype.makeTable = function(){
+	var data, table, header, body;
 
-	var data = this.sortedData, table;
+	if (this.isSort) {
+		data = this.data;
+	} else {
+		data = this.sortedData;
+	}
 
-	homes.sort(sort_by('price', true, parseInt));
+	table = "<table id=\"crunchbase\" border=\"1\">";
+	header = "<thead><tr>";
 
 	for (var i = 0; i < data.length; i++) {
-		table += '<li>- ' + homes[i].price + ', ' + homes[i].city + '</li>';
+		header += "<th>" + i + "</th>";
 	}
 
-	homes.sort(sort_by('city', false, function(a){
-		return a.toUpperCase();
-	}));
+	header += "</tr>";
+	body = "<tbody>";
 
-	var u2 = document.getElementById('u2');
-	for (i = 0; i < homes.length; i++) {
-		u2.innerHTML += '<li>- ' + homes[i].city + ', ' + homes[i].price + '</li>';
+	for (var i = 0; i < data.length; i++) {
+		body += "<tr>";
+		body += "<td>" + i + "</td>";
+		body += "</tr>";
 	}
+
+	body += "</tbody>";
+	table += header + body;
+	table += "</table>";
+
+	this.table = table;
 };
 
 DataTable.prototype.refresh = function(){
@@ -81,6 +113,6 @@ DataTable.prototype.refresh = function(){
 };
 
 DataTable.prototype.attachHandlers = function(){
-	var div = $(this.selector);
+	var $div = $(this.selector), $table = $div.find("table");
 
 };
