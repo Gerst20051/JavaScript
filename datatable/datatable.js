@@ -25,16 +25,20 @@ var DataTable = function(data){
 		this.data = data;
 		this.filteredData = JSON.parse(JSON.stringify(data));
 		this.selector = selector;
+		this.attachHandlers();
 		this.run();
 	};
 
 	this.run = function(){
 		this.filterData();
 		this.getHeaders();
+		this.refresh();
+	};
+
+	this.refresh = function(){
 		this.sortData();
 		this.makeTable();
 		this.insertTable();
-		this.attachHandlers();
 	};
 
 	this.insertTable = function(){
@@ -64,16 +68,11 @@ DataTable.prototype.filterData = function(){
 		}
 		data[i] = object;
 	}
-	if (this.isSort) {
-		this.sortedData = JSON.parse(JSON.stringify(data));
-	}
+	this.sortedData = JSON.parse(JSON.stringify(data));
 };
 
 DataTable.prototype.getHeaders = function(){
 	this.headers = Object.keys(this.filteredData[0]);
-	if (this.isSort) {
-		this.sortField = this.headers[0];
-	}
 };
 
 DataTable.prototype.sortData = function(){
@@ -90,10 +89,6 @@ DataTable.prototype.updateData = function(data){
 	this.data = data;
 	this.filteredData = JSON.parse(JSON.stringify(data));
 	this.run();
-};
-
-DataTable.prototype.parseData = function(){
-
 };
 
 DataTable.prototype.makeTable = function(){
@@ -130,13 +125,18 @@ DataTable.prototype.makeTable = function(){
 	this.table = table;
 };
 
-DataTable.prototype.refresh = function(){
-
-};
-
 DataTable.prototype.attachHandlers = function(){
-	var $div = $(this.selector), $table = $div.find("table"), $thead = $table.find("thead");
-	$($thead).on('click', 'th', function(){
-		alert(this);
+	var $div = $(this.selector), self = this;
+	$div.on('click', 'th', function(){
+		var field = $(this).text();
+		if (field.length) {
+			self.isSort = true;
+			if (field != self.sortField) {
+				self.sortField = field;
+			} else {
+				self.reverse();
+			}
+			self.refresh();
+		}
 	});
 };
