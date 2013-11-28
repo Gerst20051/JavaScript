@@ -9,12 +9,12 @@ font-family:'trebuchet MS', 'Lucida sans', Arial;
 font-size:14px;
 }
 
-#datatable {
+.datatable {
 margin:40px auto;
 width:1024px;
 }
 
-#datatable table {
+.datatable table {
 border:solid #ccc 1px;
 *border-collapse:collapse; /* IE7 and lower */
 -moz-border-radius:6px;
@@ -27,7 +27,7 @@ box-shadow:0 1px 1px #ccc;
 width:100%;
 }
 
-#datatable table tr:hover {
+.datatable table tr:hover {
 background:#fbf8e9;
 -o-transition:all 0.1s ease-in-out;
 -webkit-transition:all 0.1s ease-in-out;
@@ -36,15 +36,15 @@ background:#fbf8e9;
 transition:all 0.1s ease-in-out;
 }
 
-#datatable table td,
-#datatable table th {
+.datatable table td,
+.datatable table th {
 border-left:1px solid #ccc;
 border-top:1px solid #ccc;
 padding:10px;
 text-align:left;
 }
 
-#datatable table th {
+.datatable table th {
 background-color:#dce9f9;
 background-image:-webkit-gradient(linear, left top, left bottom, from(#ebf3fc), to(#dce9f9));
 background-image:-webkit-linear-gradient(top, #ebf3fc, #dce9f9);
@@ -58,38 +58,43 @@ border-top:none;
 box-shadow:0 1px 0 rgba(255,255,255,.8) inset;
 cursor:pointer;
 text-shadow:0 1px 0 rgba(255,255,255,.5);
+-webkit-user-select:none;
+-moz-user-select:none;
+-ms-user-select:none;
+-o-user-select:none;
+user-select:none;
 }
 
-#datatable table td:first-child,
-#datatable table th:first-child {
+.datatable table td:first-child,
+.datatable table th:first-child {
 border-left:none;
 }
 
-#datatable table th:first-child {
+.datatable table th:first-child {
 -moz-border-radius:6px 0 0 0;
 -webkit-border-radius:6px 0 0 0;
 border-radius:6px 0 0 0;
 }
 
-#datatable table th:last-child {
+.datatable table th:last-child {
 -moz-border-radius:0 6px 0 0;
 -webkit-border-radius:0 6px 0 0;
 border-radius:0 6px 0 0;
 }
 
-#datatable table th:only-child {
+.datatable table th:only-child {
 -moz-border-radius:6px 6px 0 0;
 -webkit-border-radius:6px 6px 0 0;
 border-radius:6px 6px 0 0;
 }
 
-#datatable table tr:last-child td:first-child {
+.datatable table tr:last-child td:first-child {
 -moz-border-radius:0 0 0 6px;
 -webkit-border-radius:0 0 0 6px;
 border-radius:0 0 0 6px;
 }
 
-#datatable table tr:last-child td:last-child {
+.datatable table tr:last-child td:last-child {
 -moz-border-radius:0 0 6px 0;
 -webkit-border-radius:0 0 6px 0;
 border-radius:0 0 6px 0;
@@ -98,7 +103,8 @@ border-radius:0 0 6px 0;
 </head>
 <body>
 <h1>Data Table</h1>
-<div id="datatable"></div>
+<div id="datatable" class="datatable"></div>
+<div id="datatable2" class="datatable"></div>
 <script>
 var data = [
     {
@@ -189,6 +195,11 @@ var data = [
 
 var datatable = new DataTable(data);
 datatable.init("#datatable");
+
+var datatable2 = new DataTable(data);
+datatable2.init("#datatable2");
+
+//$("#datatable").dataTable(data);
 // datatable.refresh();
 /*
 datatable.setPrimers({
