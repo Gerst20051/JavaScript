@@ -1,4 +1,10 @@
-var sort_by = function(field, reverse, primer){
+/*
+ *****************************************
+ *** DataTable created by Andrew Gerst ***
+ *****************************************
+ */
+
+ var sort_by = function(field, reverse, primer){
 	var key = function(x){
 		return primer ? primer(x[field]) : x[field];
 	};
@@ -112,8 +118,8 @@ DataTable.prototype.reverse = function(){
 };
 
 DataTable.prototype.updateData = function(data){
-	this.data = data;
-	this.filteredData = JSON.parse(JSON.stringify(data));
+	this.data = data || [];
+	this.filteredData = JSON.parse(JSON.stringify(this.data));
 	this.run();
 };
 
