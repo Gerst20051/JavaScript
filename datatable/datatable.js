@@ -15,7 +15,7 @@
 	}
 };
 
-var DataTable = function(inputdata){
+var DataTable = function(){
 	this.data = []; // original (unsorted) data
 	this.filteredData = []; // this.data without objects and arrays (this is used not this.data)
 	this.sortedData = []; // this.filteredData sorted according to this.sortField
@@ -29,11 +29,13 @@ var DataTable = function(inputdata){
 	this.selector = "";
 	this.table = "";
 
-	this.init = function(selector, options){
-		this.data = inputdata || [];
-		this.filteredData = JSON.parse(JSON.stringify(this.data));
+	this.config = function(selector, options){
 		this.selector = selector || "";
 		this.options = options || {};
+		return this;
+	};
+
+	this.init = function(){
 		this.attachHandlers();
 		this.parseOptions();
 		this.run();
@@ -58,6 +60,7 @@ var DataTable = function(inputdata){
 
 DataTable.prototype.setPrimers = function(primers){
 	this.primers = primers;
+	return this;
 };
 
 DataTable.prototype.parseOptions = function(){
@@ -117,9 +120,14 @@ DataTable.prototype.reverse = function(){
 	this.isReverse = !this.isReverse;
 };
 
-DataTable.prototype.updateData = function(data){
+DataTable.prototype.setData = function(data){
 	this.data = data || [];
 	this.filteredData = JSON.parse(JSON.stringify(this.data));
+	return this;
+};
+
+DataTable.prototype.updateData = function(data){
+	this.setData(data);
 	this.run();
 };
 

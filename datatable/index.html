@@ -207,16 +207,14 @@ var data = [
     }
 ];
 
-var datatable = new DataTable(data);
-datatable.init("#datatable");
+var datatable = new DataTable();
+datatable.config("#datatable").setData(data).init();
 
-var datatable2 = new DataTable(data);
-datatable2.init("#datatable2", {
+var datatable2 = new DataTable();
+datatable2.config("#datatable2", {
     "goodkeys": ["id", "balance", "company", "location"]
-});
+}).setData(data).init();
 
-//$("#datatable").dataTable(data);
-// datatable.refresh();
 /*
 datatable.setPrimers({
 	"price": parseInt,
