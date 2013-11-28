@@ -27,6 +27,10 @@ box-shadow:0 1px 1px #ccc;
 width:100%;
 }
 
+.datatable table tr:nth-child(even) {
+background:#fefdfa;
+}
+
 .datatable table tr:hover {
 background:#fbf8e9;
 -o-transition:all 0.1s ease-in-out;
@@ -63,6 +67,16 @@ text-shadow:0 1px 0 rgba(255,255,255,.5);
 -ms-user-select:none;
 -o-user-select:none;
 user-select:none;
+}
+
+.datatable table th:active {
+background-color:#c2d8f4;
+background-image:-webkit-gradient(linear, left top, left bottom, from(#ebf3fc), to(#c2d8f4));
+background-image:-webkit-linear-gradient(top, #ebf3fc, #c2d8f4);
+background-image:   -moz-linear-gradient(top, #ebf3fc, #c2d8f4);
+background-image:    -ms-linear-gradient(top, #ebf3fc, #c2d8f4);
+background-image:     -o-linear-gradient(top, #ebf3fc, #c2d8f4);
+background-image:        linear-gradient(top, #ebf3fc, #c2d8f4);
 }
 
 .datatable table td:first-child,
