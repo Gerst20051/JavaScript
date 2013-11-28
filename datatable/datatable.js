@@ -9,23 +9,27 @@ var sort_by = function(field, reverse, primer){
 	}
 };
 
-var DataTable = function(data){
+var DataTable = function(inputdata){
 	this.data = []; // original (unsorted) data
 	this.filteredData = []; // this.data without objects and arrays (this is used not this.data)
 	this.sortedData = []; // this.filteredData sorted according to this.sortField
 	this.primers = {}; // primer function for data keys
 	this.headers = []; // values of keys that act as headers in table
+	this.goodkeys = []; // keys that you want to show in table
+	this.options = {}; // object passed in through this.init function to customize and add flexibility to table
 	this.isSort = false;
 	this.isReverse = false;
 	this.sortField = "";
 	this.selector = "";
 	this.table = "";
 
-	this.init = function(selector){
-		this.data = data;
-		this.filteredData = JSON.parse(JSON.stringify(data));
-		this.selector = selector;
+	this.init = function(selector, options){
+		this.data = inputdata || [];
+		this.filteredData = JSON.parse(JSON.stringify(this.data));
+		this.selector = selector || "";
+		this.options = options || {};
 		this.attachHandlers();
+		this.parseOptions();
 		this.run();
 	};
 
@@ -50,23 +54,45 @@ DataTable.prototype.setPrimers = function(primers){
 	this.primers = primers;
 };
 
-DataTable.prototype.filterData = function(){
-	var data = this.filteredData, object = data[0], badkeys = [];
-	for (var key in object) {
-		if (object.hasOwnProperty(key)) {
-			if (typeof object[key] == "object" || object[key] instanceof Array) {
-				badkeys.push(key);
+DataTable.prototype.parseOptions = function(){
+	if (0 < Object.keys(this.options).length) {
+		for (var key in this.options) {
+			if (key == "goodkeys" && this.options[key] instanceof Array) {
+				this.goodkeys = this.options[key];
 			}
 		}
 	}
-	for (var i = 0; i < data.length; i++) {
-		object = data[i];
-		for (key in object) {
-			if (object.hasOwnProperty(key) && badkeys.indexOf(key) > -1) {
-				delete object[key];
+};
+
+DataTable.prototype.filterData = function(){
+	var data = this.filteredData, object = data[0], badkeys = [];
+	if (!this.goodkeys.length) {
+		for (var key in object) {
+			if (object.hasOwnProperty(key)) {
+				if (typeof object[key] == "object" || object[key] instanceof Array) {
+					badkeys.push(key);
+				}
 			}
 		}
-		data[i] = object;
+		for (var i = 0; i < data.length; i++) {
+			object = data[i];
+			for (key in object) {
+				if (object.hasOwnProperty(key) && badkeys.indexOf(key) > -1) {
+					delete object[key];
+				}
+			}
+			data[i] = object;
+		}
+	} else {
+		for (var i = 0; i < data.length; i++) {
+			object = data[i];
+			for (key in object) {
+				if (object.hasOwnProperty(key) && this.goodkeys.indexOf(key) == -1) {
+					delete object[key];
+				}
+			}
+			data[i] = object;
+		}
 	}
 	this.sortedData = JSON.parse(JSON.stringify(data));
 };
@@ -95,7 +121,7 @@ DataTable.prototype.makeTable = function(){
 	var data, i, ii, il, row, key, table, header, body;
 
 	if (!this.isSort) {
-		data = this.data;
+		data = this.filteredData;
 	} else {
 		data = this.sortedData;
 	}

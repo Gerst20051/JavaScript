@@ -211,7 +211,9 @@ var datatable = new DataTable(data);
 datatable.init("#datatable");
 
 var datatable2 = new DataTable(data);
-datatable2.init("#datatable2");
+datatable2.init("#datatable2", {
+    "goodkeys": ["id", "balance", "company", "location"]
+});
 
 //$("#datatable").dataTable(data);
 // datatable.refresh();
