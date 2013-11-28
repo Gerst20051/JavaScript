@@ -97,30 +97,29 @@ DataTable.prototype.parseData = function(){
 };
 
 DataTable.prototype.makeTable = function(){
-	var data, table, header, body;
+	var data, i, ii, il, row, key, table, header, body;
 
-	if (this.isSort) {
+	if (!this.isSort) {
 		data = this.data;
 	} else {
 		data = this.sortedData;
 	}
 
-	table = "<table id=\"crunchbase\" border=\"1\">";
+	table = "<table id=\"crunchbase\">";
 	header = "<thead><tr>";
 
-	for (var i = 0; i < data.length; i++) {
-		var row = data[i];
-		for (var ii = 0; ii < data.length; ii++) {
-			header += "<th>" + row[ii] + "</th>";
-		}
+	for (i = 0, il = this.headers.length; i < il; i++) {
+		header += "<th>" + this.headers[i] + "</th>";
 	}
 
 	header += "</tr></thead>";
 	body = "<tbody>";
 
-	for (var i = 0; i < data.length; i++) {
+	for (i = 0; i < data.length; i++) {
 		body += "<tr>";
-		body += "<td>" + i + "</td>";
+		for (key in data[i]) {
+			body += "<td>" + data[i][key] + "</td>";
+		}
 		body += "</tr>";
 	}
 
