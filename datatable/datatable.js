@@ -10,9 +10,9 @@ var sort_by = function(field, reverse, primer){
 };
 
 var DataTable = function(data){
-	this.data = {}; // original (unsorted) data
-	this.filteredData = {}; // this.data without objects and arrays (this is used not this.data)
-	this.sortedData = {}; // this.filteredData sorted according to this.sortField
+	this.data = []; // original (unsorted) data
+	this.filteredData = []; // this.data without objects and arrays (this is used not this.data)
+	this.sortedData = []; // this.filteredData sorted according to this.sortField
 	this.primers = {}; // primer function for data keys
 	this.headers = []; // values of keys that act as headers in table
 	this.isSort = false;
@@ -23,6 +23,7 @@ var DataTable = function(data){
 
 	this.init = function(selector){
 		this.data = data;
+		this.filteredData = JSON.parse(JSON.stringify(data));
 		this.selector = selector;
 		this.run();
 	};
@@ -46,20 +47,38 @@ DataTable.prototype.setPrimers = function(primers){
 };
 
 DataTable.prototype.filterData = function(){
-
+	var data = this.filteredData, object = data[0], badkeys = [];
+	for (var key in object) {
+		if (object.hasOwnProperty(key)) {
+			if (typeof object[key] == "object" || object[key] instanceof Array) {
+				badkeys.push(key);
+			}
+		}
+	}
+	for (var i = 0; i < data.length; i++) {
+		object = data[i];
+		for (key in object) {
+			if (object.hasOwnProperty(key) && badkeys.indexOf(key) > -1) {
+				delete object[key];
+			}
+		}
+		data[i] = object;
+	}
+	if (this.isSort) {
+		this.sortedData = JSON.parse(JSON.stringify(data));
+	}
 };
 
 DataTable.prototype.getHeaders = function(){
-	this.headers = Object.keys(this.data[0]);
-	this.sortField = this.headers[0];
-	// filter out objects and arrays
+	this.headers = Object.keys(this.filteredData[0]);
+	if (this.isSort) {
+		this.sortField = this.headers[0];
+	}
 };
 
 DataTable.prototype.sortData = function(){
-	var data;
 	if (this.isSort && this.sortField.length) {
-		data = this.filteredData;
-		this.sortedData = data.sort(sort_by(this.sortField, this.isReverse));
+		this.sortedData.sort(sort_by(this.sortField, this.isReverse));
 	}
 };
 
@@ -69,6 +88,7 @@ DataTable.prototype.reverse = function(){
 
 DataTable.prototype.updateData = function(data){
 	this.data = data;
+	this.filteredData = JSON.parse(JSON.stringify(data));
 	this.run();
 };
 
@@ -89,10 +109,13 @@ DataTable.prototype.makeTable = function(){
 	header = "<thead><tr>";
 
 	for (var i = 0; i < data.length; i++) {
-		header += "<th>" + i + "</th>";
+		var row = data[i];
+		for (var ii = 0; ii < data.length; ii++) {
+			header += "<th>" + row[ii] + "</th>";
+		}
 	}
 
-	header += "</tr>";
+	header += "</tr></thead>";
 	body = "<tbody>";
 
 	for (var i = 0; i < data.length; i++) {
@@ -113,6 +136,8 @@ DataTable.prototype.refresh = function(){
 };
 
 DataTable.prototype.attachHandlers = function(){
-	var $div = $(this.selector), $table = $div.find("table");
-
+	var $div = $(this.selector), $table = $div.find("table"), $thead = $table.find("thead");
+	$($thead).on('click', 'th', function(){
+		alert(this);
+	});
 };
