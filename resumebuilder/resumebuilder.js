@@ -103,16 +103,47 @@ ResumeBuilder.prototype.addSkillsModule = function(){
 
 ResumeBuilder.prototype.addExperienceModule = function(){
 	var html = [];
+	html.push('<div id="experienceModule" class="resumemodule">');
+	html.push('<div class="leftcol"><div>Experience</div></div>');
+	html.push('<div class="rightcol">');
+	html.push('<div>');
+	html.push('<div><b>Computer Programmer</b> – UNC Chapel Hill Computer Science Department<span class="datespan">November 2011 - June 2012</span></div>');
+	html.push('<div>html5, css, youtube­api, javascript, dojo</div>');
+	html.push('<div class="responsibilities">Accessible YouTube is an interface to YouTube designed for people who access their computers via either 2 switches for children with disabilities or a mouse. http://gbserver2.cs.unc.edu/playpen/AccessibleYouTube/');
+	html.push('</div>');
+	html.push('</div>');
+	html.push('</div>');
+	html.push('</div>');
 	this.output.push(html.join(''));
 };
 
 ResumeBuilder.prototype.addEducationModule = function(){
 	var html = [];
+	html.push('<div id="educationModule" class="resumemodule">');
+	html.push('<div class="leftcol"><div>Education</div></div>');
+	html.push('<div class="rightcol">');
+	html.push('<div>');
+	html.push('<div><b>Bachelor of Arts (B.A.) Computer Science</b> – University of North Carolina at Chapel Hill<span class="datespan">2011 - 2015</span></div>');
+	html.push('<div class="achievements">Won second place in a programming competition hosted by Passport Parking and now my picture is up on the wall in the computer science building. My team and I placed third out of eight teams in Facebook\'s 2012 North Carolina Hackathon.');
+	html.push('</div>');
+	html.push('</div>');
+	html.push('</div>');
+	html.push('</div>');
 	this.output.push(html.join(''));
 };
 
 ResumeBuilder.prototype.addProjectsModule = function(){
 	var html = [];
+	html.push('<div id="projectsModule" class="resumemodule">');
+	html.push('<div class="leftcol"><div>Projects</div></div>');
+	html.push('<div class="rightcol">');
+	html.push('<div>');
+	html.push('<div><b>HnS Wave</b> – https://github.com/Gerst20051/HnS­Wave</div>');
+	html.push('<div>javascript, php</div>');
+	html.push('<div class="desc">New Wave Web Development. HnS Quotes and WebSnapChat.</div>');
+	html.push('</div>');
+	html.push('</div>');
+	html.push('</div>');
 	this.output.push(html.join(''));
 };
 
