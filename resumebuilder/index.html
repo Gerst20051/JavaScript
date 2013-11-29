@@ -13,6 +13,10 @@ padding:20px;
 text-align:center;
 }
 
+.clear {
+clear:both;
+}
+
 #doc {
 background-color:#fff;
 margin:auto;
@@ -27,10 +31,99 @@ width:900px;
 	-webkit-box-shadow:1px 1px 5px rgba(0, 0, 0, 6);
 	}
 }
+
+.resumemodule {
+margin:0 30px;
+padding:10px 0;
+}
+
+.resumemodule:not(#titleModule) {
+border-top:1px #000 solid;
+}
+
+.resumemodule .leftcol {
+float:left;
+width:200px;
+}
+
+.resumemodule .rightcol {
+clear:right;
+margin:0 0 0 200px;
+}
+
+#titleModule {
+margin-top:35px;
+}
+
+#titleModule #nametitle {
+float:left;
+}
+
+#titleModule #name {
+color:#2b67af;
+font-size:46px;
+font-weight:bold;
+}
+
+#titleModule #title {
+color:#000;
+font-weight:bold;
+margin-top:2px;
+}
+
+#titleModule #statement {
+color:#aaa;
+font-size:16px;
+font-weight:bold;
+line-height:1.4em;
+margin:0 auto;
+padding:30px 0;
+text-align:justify;
+width:720px;
+}
+
+#titleModule #contact {
+clear:right;
+float:right;
+padding-top:2px;
+text-align:right;
+}
+
+#titleModule #contact > div {
+padding-top:1px;
+}
 </style>
 </head>
 <body>
-<div id="doc" class="resumedoc"></div>
+<div id="doc" class="resumedoc">
+<div id="titleModule" class="resumemodule">
+<div id="nametitle">
+<div id="name">Andrew Anthony Gerst</div>
+<div id="title">JavaScript Maniac... Open Source Contributor</div>
+</div>
+<div id="contact">
+<div>Chapel Hill, NC, United States</div>
+<div>9198851642</div>
+<div>gerst20051@gmail.com</div>
+<div>http://about.me/agerst</div>
+</div>
+<div id="statement" class="clear">
+I'm seeking a Web Development position where I can join and collaboratively work with a team and/or independently to build quality web applications or games. I've been a Web Developer since 2005. I started because I wanted a central database accessible from anywhere on the internet of everything I owned. Mainly I wanted to document my games and have cheats for all of my games on my website I named Homenet. Homenet Spaces (HnS) was my first social network my spin on MySpace. I've always seen ways to improve the way we interact with our friends and family. I really want to use my skills to impact the world in life-changing ways. Another passion I have is listening to music so I've created multiple tools that offer different music listening experiences. Click for my book JavaScript Mastery.
+</div>
+</div>
+<div id="skillsModule" class="resumemodule">
+Skills
+</div>
+<div id="experienceModule" class="resumemodule">
+Experience
+</div>
+<div id="educationModule" class="resumemodule">
+Education
+</div>
+<div id="projectsModule" class="resumemodule">
+Projects
+</div>
+</div>
 <script>
 var resume = {
 	"name": "Andrew Anthony Gerst",
