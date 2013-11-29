@@ -7,8 +7,8 @@
 body {
 background-color:#dfdfdf;
 color:#2f2f2f;
-font-family:'trebuchet MS', 'Lucida sans', Arial;
-font-size:14px;
+font-family:arial;
+font-size:13px;
 padding:20px;
 text-align:center;
 }
@@ -32,23 +32,39 @@ width:900px;
 	}
 }
 
+@media print {
+	body {
+	background-color:#fff;
+	padding:0;
+	}
+
+	#doc {
+	padding:0;
+	}
+
+	#titleModule {
+	margin-top:0;
+	}
+}
+
 .resumemodule {
 margin:0 30px;
 padding:10px 0;
 }
 
 .resumemodule:not(#titleModule) {
-border-top:1px #000 solid;
+border-top:1px #6fa0db solid;
+min-height:18px;
 }
 
 .resumemodule .leftcol {
 float:left;
-width:200px;
+width:160px;
 }
 
 .resumemodule .rightcol {
 clear:right;
-margin:0 0 0 200px;
+margin:0 0 0 160px;
 }
 
 #titleModule {
@@ -67,17 +83,18 @@ font-weight:bold;
 
 #titleModule #title {
 color:#000;
+font-size:14px;
 font-weight:bold;
 margin-top:2px;
 }
 
 #titleModule #statement {
-color:#aaa;
+color:#666;
 font-size:16px;
 font-weight:bold;
 line-height:1.4em;
 margin:0 auto;
-padding:30px 0;
+padding:25px 0 20px;
 text-align:justify;
 width:720px;
 }
@@ -92,6 +109,28 @@ text-align:right;
 #titleModule #contact > div {
 padding-top:1px;
 }
+
+.resumemodule .leftcol > div {
+color:#6fa0db;
+font-size:18px;
+font-weight:bold;
+}
+
+.resumemodule .datespan {
+color:#666;
+float:right;
+font-style:italic;
+}
+
+.resumemodule .responsibilities,
+.resumemodule .achievements,
+.resumemodule .desc {
+margin-top:6px;
+}
+
+#skillsModule b {
+margin-right:30px;
+}
 </style>
 </head>
 <body>
@@ -99,7 +138,7 @@ padding-top:1px;
 <div id="titleModule" class="resumemodule">
 <div id="nametitle">
 <div id="name">Andrew Anthony Gerst</div>
-<div id="title">JavaScript Maniac... Open Source Contributor</div>
+<div id="title">JavaScript Engineer</div>
 </div>
 <div id="contact">
 <div>Chapel Hill, NC, United States</div>
@@ -112,22 +151,45 @@ I'm seeking a Web Development position where I can join and collaboratively work
 </div>
 </div>
 <div id="skillsModule" class="resumemodule">
-Skills
+<div class="leftcol"><div>Skills</div></div>
+<div class="rightcol"><b>Like: </b>html5, javascript, jquery, php, mysql</div>
 </div>
 <div id="experienceModule" class="resumemodule">
-Experience
+<div class="leftcol"><div>Experience</div></div>
+<div class="rightcol">
+<div>
+<div><b>Computer Programmer</b> – UNC Chapel Hill Computer Science Department<span class="datespan">November 2011 - June 2012</span></div>
+<div>html5, css, youtube­api, javascript, dojo</div>
+<div class="responsibilities">Accessible YouTube is an interface to YouTube designed for people who access their computers via either 2 switches for children with disabilities or a mouse. http://gbserver2.cs.unc.edu/playpen/AccessibleYouTube/
+</div>
+</div>
+</div>
 </div>
 <div id="educationModule" class="resumemodule">
-Education
+<div class="leftcol"><div>Education</div></div>
+<div class="rightcol">
+<div>
+<div><b>Bachelor of Arts (B.A.) Computer Science</b> – University of North Carolina at Chapel Hill<span class="datespan">2011 - 2015</span></div>
+<div class="achievements">Won second place in a programming competition hosted by Passport Parking and now my picture is up on the wall in the computer science building. My team and I placed third out of eight teams in Facebook's 2012 North Carolina Hackathon.
+</div>
+</div>
+</div>
 </div>
 <div id="projectsModule" class="resumemodule">
-Projects
+<div class="leftcol"><div>Projects</div></div>
+<div class="rightcol">
+<div>
+<div><b>HnS Wave</b> – https://github.com/Gerst20051/HnS­Wave</div>
+<div>javascript, php</div>
+<div class="desc">New Wave Web Development. HnS Quotes and WebSnapChat.</div>
+</div>
+</div>
 </div>
 </div>
 <script>
 var resume = {
 	"name": "Andrew Anthony Gerst",
-	"title": "JavaScript Maniac... Open Source Contributor",
+	"title": "JavaScript Engineer",
 	"location": "Chapel Hill, NC, United States",
 	"number": "9198851642",
 	"email": "gerst20051@gmail.com",
