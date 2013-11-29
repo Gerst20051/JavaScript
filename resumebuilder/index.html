@@ -5,25 +5,37 @@
 <link href="http://yui.yahooapis.com/3.14.0/build/cssnormalize/cssnormalize-min.css" rel="stylesheet" type="text/css">
 <style>
 body {
-color:#444;
+background-color:#dfdfdf;
+color:#2f2f2f;
 font-family:'trebuchet MS', 'Lucida sans', Arial;
 font-size:14px;
+padding:20px;
+text-align:center;
 }
 
 #doc {
+background-color:#fff;
 margin:auto;
+padding:10px;
+text-align:left;
 width:900px;
+}
+
+@media screen {
+	#doc {
+	-moz-box-shadow:1px 1px 6px rgba(0, 0, 0, 6);
+	-webkit-box-shadow:1px 1px 5px rgba(0, 0, 0, 6);
+	}
 }
 </style>
 </head>
 <body>
-<h1>Data Table</h1>
 <div id="doc" class="resumedoc"></div>
 <script>
 var resume = {
 	"name": "Andrew Anthony Gerst",
 	"title": "JavaScript Maniac... Open Source Contributor",
-	"location": "Chapel Hill, NC, United States"
+	"location": "Chapel Hill, NC, United States",
 	"number": "9198851642",
 	"email": "gerst20051@gmail.com",
 	"url": "http://about.me/agerst",
