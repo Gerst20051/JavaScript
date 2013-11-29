@@ -2,6 +2,7 @@
 <title>Data Table</title>
 <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 <script src="datatable.js"></script>
+<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
 <style>
 body {
 color:#444;
@@ -61,12 +62,24 @@ border-top:none;
 -moz-box-shadow:0 1px 0 rgba(255,255,255,.8) inset;
 box-shadow:0 1px 0 rgba(255,255,255,.8) inset;
 cursor:pointer;
+padding-right:28px;
+position:relative;
 text-shadow:0 1px 0 rgba(255,255,255,.5);
 -webkit-user-select:none;
 -moz-user-select:none;
 -ms-user-select:none;
 -o-user-select:none;
 user-select:none;
+}
+
+.datatable table th .fa {
+position:absolute;
+right:10px;
+}
+
+.datatable table th .fa-sort-asc,
+.datatable table th .fa-sort-desc {
+color:#ffbb1e;
 }
 
 .datatable table th:active {

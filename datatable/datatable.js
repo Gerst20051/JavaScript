@@ -22,7 +22,7 @@ var DataTable = function(){
 	this.primers = {}; // primer function for data keys
 	this.headers = []; // values of keys that act as headers in table
 	this.goodkeys = []; // keys that you want to show in table
-	this.options = {}; // object passed in through this.init function to customize and add flexibility to table
+	this.options = {}; // object passed in through this.config function to customize and add flexibility to table
 	this.isSort = false;
 	this.isReverse = false;
 	this.sortField = "";
@@ -139,7 +139,7 @@ DataTable.prototype.makeTable = function(){
 	header = "<thead><tr>";
 
 	for (i = 0, il = this.headers.length; i < il; i++) {
-		header += "<th>" + this.headers[i] + "</th>";
+		header += "<th>" + this.headers[i] + "<i class=\"fa fa-sort\"></i></th>";
 	}
 
 	header += "</tr></thead>";
@@ -163,7 +163,7 @@ DataTable.prototype.makeTable = function(){
 DataTable.prototype.attachHandlers = function(){
 	var $div = $(this.selector), self = this;
 	$div.on('click', 'th', function(){
-		var field = $(this).text();
+		var field = $(this).text(), findex = self.headers.indexOf(field), headers, selection;
 		if (field.length) {
 			self.isSort = true;
 			if (field != self.sortField) {
@@ -172,6 +172,10 @@ DataTable.prototype.attachHandlers = function(){
 				self.reverse();
 			}
 			self.refresh();
+			headers = $div.find('table thead th');
+			headers.find('fa-sort-asc, fa-sort-desc').removeClass('fa-sort-asc, fa-sort-desc').addClass('fa-sort');
+			selection = headers.eq(findex);
+			selection.find('i').removeClass('fa-sort').addClass('fa-sort-' + ((self.isReverse) ? 'desc' : 'asc'));
 		}
 	});
 };
