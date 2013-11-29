@@ -4,4 +4,10 @@
  *********************************************
  */
 
+var ResumeBuilder = function(){
+	this.selector = "";
+};
 
+ResumeBuilder.prototype.config = function(selector){
+	this.selector = selector;
+};

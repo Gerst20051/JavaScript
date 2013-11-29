@@ -148,12 +148,12 @@ var resume = {
 	]
 };
 
-var myresume = new Resume();
+var myresume = new ResumeBuilder();
 myresume.config("#doc").updateData(resume);
 
 /*
 
-var myresume = new Resume();
+var myresume = new ResumeBuilder();
 myresume.config("#doc");
 
 myresume.setName('');
@@ -164,6 +164,12 @@ myresume.setEmail('');
 myresume.setURL('');
 myresume.setSkills(['','','']);
 myresume.addSkill('');
+myresume.setExperience([{},{},{}]);
+myresume.addExperience({});
+myresume.setEducation([{},{},{}]);
+myresume.addEducation({});
+myresume.setProjects([{},{},{}]);
+myresume.addProject({});
 
 */
 </script>
