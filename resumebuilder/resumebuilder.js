@@ -29,6 +29,7 @@ var ResumeBuilder = function(){
 	this.moduleAliases = {
 		"title": this.addTitleModule,
 		"skills": this.addSkillsModule,
+		"certifications": this.addCertificationsModule,
 		"experience": this.addExperienceModule,
 		"education": this.addEducationModule,
 		"projects": this.addProjectsModule
@@ -55,6 +56,9 @@ ResumeBuilder.prototype.parseData = function(){
 	}
 	if (data.skills && data.skills.length) {
 		this.modules.push('skills');
+	}
+	if (data.certifications && data.certifications.length) {
+		this.modules.push('certifications');
 	}
 	if (data.experience && data.experience.length) {
 		this.modules.push('experience');
@@ -136,6 +140,15 @@ ResumeBuilder.prototype.addSkillsModule = function(){
 	this.output.push(html.join(''));
 };
 
+ResumeBuilder.prototype.addCertificationsModule = function(){
+	var html = [];
+	html.push('<div id="certificationsModule" class="resumemodule clear">');
+	html.push('<div class="leftcol"><div>Certifications</div></div>');
+	html.push('<div class="rightcol">' + this.data.certifications.join(', ') + '</div>');
+	html.push('</div>');
+	this.output.push(html.join(''));
+};
+
 ResumeBuilder.prototype.addExperienceModule = function(){
 	var html = [], experience = this.data.experience, i;
 	html.push('<div id="experienceModule" class="resumemodule clear">');
@@ -147,7 +160,9 @@ ResumeBuilder.prototype.addExperienceModule = function(){
 		if (experience[i].technologies && experience[i].technologies.length) {
 			html.push('<div>' + experience[i].technologies.join(', ') + '</div>');
 		}
-		html.push('<div class="responsibilities">' + experience[i].responsibilities + '</div>');
+		if (experience[i].responsibilities && experience[i].responsibilities.length) {
+			html.push('<div class="responsibilities">' + experience[i].responsibilities + '</div>');
+		}
 		html.push('</div>');
 	}
 	html.push('</div>');
@@ -166,7 +181,9 @@ ResumeBuilder.prototype.addEducationModule = function(){
 		if (education[i].technologies && education[i].technologies.length) {
 			html.push('<div>' + education[i].technologies.join(', ') + '</div>');
 		}
-		html.push('<div class="achievements">' + education[i].achievements + '</div>');
+		if (education[i].achievements && education[i].achievements.length) {
+			html.push('<div class="achievements">' + education[i].achievements + '</div>');
+		}
 		html.push('</div>');
 	}
 	html.push('</div>');
@@ -185,7 +202,9 @@ ResumeBuilder.prototype.addProjectsModule = function(){
 		if (projects[i].technologies && projects[i].technologies.length) {
 			html.push('<div>' + projects[i].technologies.join(', ') + '</div>');
 		}
-		html.push('<div class="desc">' + projects[i].desc + '</div>');
+		if (projects[i].desc && projects[i].desc.length) {
+			html.push('<div class="desc">' + projects[i].desc + '</div>');
+		}
 		html.push('</div>');
 	}
 	html.push('</div>');
