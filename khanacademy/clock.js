@@ -20,19 +20,19 @@ var int = 0,
 	hour_angle = 3*PI/2,
 	hour_interval = minute_interval/12;
 
-var getMinuteSecs = function() {
+var getMinuteSecs = function(){
 	var m = minute();
 	var secs = m*60;
 	return secs;
 };
 
-var getHourSecs = function() {
+var getHourSecs = function(){
 	var h = hour()%12;
 	var secs = h*60*60;
 	return secs;
 };
 
-var getMinuteHourSecs = function() {
+var getMinuteHourSecs = function(){
 	var h = minute()/60;
 	var secs = h*60*60;
 	return secs;

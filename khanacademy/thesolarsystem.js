@@ -39,13 +39,13 @@ var baseSize = 50;
 var incrX = 30;
 var incrY = 20;
 
-var drawPlanet = function(time, speed, orbit, size) {
+var drawPlanet = function(time, speed, orbit, size){
 	// Draw the planet on a particular orbit
 	var degree = (time * speed)  % 360;
 
 	// Calulate the position of the planet
 	var radiusX = (baseSize + incrX * pow(orbit, 1.1)) / 2;
-	var radiusY = (baseSize + incrY * pow(orbit,1.1)) / 2;
+	var radiusY = (baseSize + incrY * pow(orbit, 1.1)) / 2;
 	var positionX = radiusX * cos(degree);
 	var positionY = radiusY * sin(degree);
 
@@ -62,14 +62,14 @@ var drawPlanet = function(time, speed, orbit, size) {
 	}
 };
 
-var drawSolarSystem = function(time) {
+var drawSolarSystem = function(time){
 	// Draw the solar system
 	background(0, 0, 0);
 	// Sun
 	noStroke();
 	fill(255, 255, 0);
 	ellipse(0, 0, baseSize, baseSize);
-	
+
 	// Draw the orbits first
 	noFill();
 	stroke(92, 92, 92);
@@ -112,7 +112,7 @@ var drawSolarSystem = function(time) {
 
 var speed = 100; // Change the speed and see what happens!  
 var currentTime = 0;
-var draw = function() {
+var draw = function(){
 	resetMatrix();
 	translate(200, 200);
 	drawSolarSystem(currentTime);

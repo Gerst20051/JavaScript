@@ -16,7 +16,7 @@ var oldlevel = 0;
 var record = 0;
 var oldrecord = 0;
 
-var draw = function() {
+var draw = function(){
 	if (ballMoving === true) {
 		if (0 < dir && colorVal < 255) {
 			colorVal++;
@@ -26,20 +26,20 @@ var draw = function() {
 			dir = -dir;
 		}
 	}
-	
+
 	background(0, 108, colorVal);
-	
+
 	if (0 < level) {
 		textSize(12);
 		fill(240, 126, 65);
 		text('Level: ' + level, 10, 20);
 	}
-	
+
 	if (ballMoving === true || started === false) {
 		fill(240, 126, 65);
 		rect(mouseX - paddleWidth/2, 350, paddleWidth, 10);
 	}
-	
+
 	if (ballMoving) {
 		ballX += ballSpeedX;
 		ballY += ballSpeedY;
@@ -72,12 +72,12 @@ var draw = function() {
 		level = 0;
 		record = 0;
 	}
-	
+
 	if (ballMoving === true || started === false) {
 		fill(255, 234, 0);
 		ellipse(ballX, ballY, 20, 20);
 	}
-	
+
 	if (ballY <= 10) {
 		ballSpeedY = -ballSpeedY;
 	}
@@ -100,7 +100,7 @@ var draw = function() {
 	}
 };
 
-var mouseClicked = function() {
+var mouseClicked = function(){
 	if (!ballMoving) {
 		ballSpeedX = initialSpeedX;
 		ballSpeedY = initialSpeedY;
