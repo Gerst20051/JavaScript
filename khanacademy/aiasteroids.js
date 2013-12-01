@@ -68,12 +68,12 @@ Player = function(){
 
 	this.step = function(){
 		var spacing, safe = true;
-		
+
 		for (var i = 0, l = asteroids.length; i < l; i++) {
 			if (collidePoint(player, asteroids[i], collideBuffer)) {
 				spacing = player.getY() - asteroids[i].getY();
 				safe = false;
-				
+
 				if (spacing > 0) {
 					if (player.getY() < mapSize.height - asteroids[i].getRadius() - 5) {
 						player.setY(player.getY() + player.getSpeed());
@@ -89,7 +89,7 @@ Player = function(){
 				}
 			}
 		}
-		
+
 		if (safe === true) {
 			if (player.getY() < Asteroid.prototype.radius + 100) {
 				player.setY(player.getY() + (player.getSpeed() * 1.2));
@@ -161,10 +161,10 @@ Scene = function(){
 	this.init = function(){
 		player = new Player();
 		player.init(150, 200);
-		
+
 		asteroids = [];
 		this.generateAsteroids(numAsteroids);
-		
+
 		frames = 0;
 		gameOver = false;
 	};
@@ -177,15 +177,15 @@ Scene = function(){
 
 	this.monitorAsteroids = function(){
 		var deletedAsteroids = [];
-		
+
 		for (var i = 0, l = asteroids.length; i < l; i++) {
 			if (asteroids[i].getX() <= -asteroids[i].getRadius()) {
 				deletedAsteroids.push(i);
 			}
 		}
-		
+
 		this.generateAsteroids(deletedAsteroids.length);
-		
+
 		while (deletedAsteroids.length) {
 			asteroids.splice(deletedAsteroids[0], 1);
 			deletedAsteroids.splice(0, 1);
@@ -193,7 +193,7 @@ Scene = function(){
 				deletedAsteroids[i] = deletedAsteroids[i] - 1;
 			}
 		}
-		
+
 		for (i = 0; i < deletedAsteroids; i++) {
 			asteroids.splice(i, 1);
 		}
@@ -211,7 +211,7 @@ Scene = function(){
 		if (frames > highframes) {
 			highframes = frames;
 		}
-		
+
 		gameOver = true;
 	};
 
@@ -237,7 +237,7 @@ var draw = function(){
 		strokeWeight(player.getRadius() * 2);
 		point(player.getX(), player.getY());
 		player.step();
-		
+
 		// Draw Asteroids
 		stroke(0, 0, 0);
 		for (var i = 0, l = asteroids.length; i < l; i++) {
@@ -245,10 +245,10 @@ var draw = function(){
 			point(asteroids[i].getX(), asteroids[i].getY());
 			asteroids[i].step();
 		}
-		
+
 		mainScene.monitorAsteroids();
 		mainScene.monitorCollisions();
-		
+
 		frames++;
 	} else {
 		textSize(60);
