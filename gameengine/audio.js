@@ -19,14 +19,3 @@
 	win.HNS.audio = HNS.audio;
 
 })(window, document);
-
-window.log = function(string){
-	log.history = log.history || [];
-	log.history.push(string);
-	if (this.console) console.log(Array.prototype.slice.call(arguments));
-};
-
-window.log.clear = function(){
-	log.history = log.history || [];
-	log.history.length = 0;
-};
