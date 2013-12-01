@@ -1,130 +1,33 @@
+<!--
+ ::::::::  :::::::::  ::::::::::     ::: ::::::::::: :::::::::: :::::::::       :::::::::  :::   :::                               
+:+:    :+: :+:    :+: :+:          :+: :+:   :+:     :+:        :+:    :+:      :+:    :+: :+:   :+: :+:                           
++:+        +:+    +:+ +:+         +:+   +:+  +:+     +:+        +:+    +:+      +:+    +:+  +:+ +:+                                
++#+        +#++:++#:  +#++:++#   +#++:++#++: +#+     +#++:++#   +#+    +:+      +#++:++#+    +#++:                                 
++#+        +#+    +#+ +#+        +#+     +#+ +#+     +#+        +#+    +#+      +#+    +#+    +#+                                  
+#+#    #+# #+#    #+# #+#        #+#     #+# #+#     #+#        #+#    #+#      #+#    #+#    #+#    #+#                           
+ ########  ###    ### ########## ###     ### ###     ########## #########       #########     ###                                  
+                                                                                                                                   
+                                                                                                                                   
+                                                                                                                                   
+    :::     ::::    ::: :::::::::  :::::::::  :::::::::: :::       :::       ::::::::  :::::::::: :::::::::   :::::::: ::::::::::: 
+  :+: :+:   :+:+:   :+: :+:    :+: :+:    :+: :+:        :+:       :+:      :+:    :+: :+:        :+:    :+: :+:    :+:    :+:     
+ +:+   +:+  :+:+:+  +:+ +:+    +:+ +:+    +:+ +:+        +:+       +:+      +:+        +:+        +:+    +:+ +:+           +:+     
++#++:++#++: +#+ +:+ +#+ +#+    +:+ +#++:++#:  +#++:++#   +#+  +:+  +#+      :#:        +#++:++#   +#++:++#:  +#++:++#++    +#+     
++#+     +#+ +#+  +#+#+# +#+    +#+ +#+    +#+ +#+        +#+ +#+#+ +#+      +#+   +#+# +#+        +#+    +#+        +#+    +#+     
+#+#     #+# #+#   #+#+# #+#    #+# #+#    #+# #+#         #+#+# #+#+#       #+#    #+# #+#        #+#    #+# #+#    #+#    #+#     
+###     ### ###    #### #########  ###    ### ##########   ###   ###         ########  ########## ###    ###  ########     ###     
+-->
 <!DOCTYPE html><html><head><meta charset="utf-8">
 <title>Data Table</title>
 <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 <script src="datatable.js"></script>
 <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+<link href="datatable.css" rel="stylesheet">
 <style>
 body {
 color:#444;
 font-family:'trebuchet MS', 'Lucida sans', Arial;
 font-size:14px;
-}
-
-.datatable {
-margin:40px auto;
-width:1024px;
-}
-
-.datatable table {
-border:solid #ccc 1px;
-*border-collapse:collapse; /* IE7 and lower */
--moz-border-radius:6px;
--webkit-border-radius:6px;
-border-radius:6px;
-border-spacing:0;
--webkit-box-shadow:0 1px 1px #ccc;
--moz-box-shadow:0 1px 1px #ccc;
-box-shadow:0 1px 1px #ccc;
-width:100%;
-}
-
-.datatable table tr:nth-child(even) {
-background:#fefdfa;
-}
-
-.datatable table tr:hover {
-background:#fbf8e9;
--o-transition:all 0.1s ease-in-out;
--webkit-transition:all 0.1s ease-in-out;
--moz-transition:all 0.1s ease-in-out;
--ms-transition:all 0.1s ease-in-out;
-transition:all 0.1s ease-in-out;
-}
-
-.datatable table td,
-.datatable table th {
-border-left:1px solid #ccc;
-border-top:1px solid #ccc;
-padding:10px;
-text-align:left;
-}
-
-.datatable table th {
-background-color:#dce9f9;
-background-image:-webkit-gradient(linear, left top, left bottom, from(#ebf3fc), to(#dce9f9));
-background-image:-webkit-linear-gradient(top, #ebf3fc, #dce9f9);
-background-image:   -moz-linear-gradient(top, #ebf3fc, #dce9f9);
-background-image:    -ms-linear-gradient(top, #ebf3fc, #dce9f9);
-background-image:     -o-linear-gradient(top, #ebf3fc, #dce9f9);
-background-image:        linear-gradient(top, #ebf3fc, #dce9f9);
-border-top:none;
--webkit-box-shadow:0 1px 0 rgba(255,255,255,.8) inset;
--moz-box-shadow:0 1px 0 rgba(255,255,255,.8) inset;
-box-shadow:0 1px 0 rgba(255,255,255,.8) inset;
-cursor:pointer;
-padding-right:28px;
-position:relative;
-text-shadow:0 1px 0 rgba(255,255,255,.5);
--webkit-user-select:none;
--moz-user-select:none;
--ms-user-select:none;
--o-user-select:none;
-user-select:none;
-}
-
-.datatable table th .fa {
-position:absolute;
-right:10px;
-}
-
-.datatable table th .fa-sort-asc,
-.datatable table th .fa-sort-desc {
-color:#ffbb1e;
-}
-
-.datatable table th:active {
-background-color:#c2d8f4;
-background-image:-webkit-gradient(linear, left top, left bottom, from(#ebf3fc), to(#c2d8f4));
-background-image:-webkit-linear-gradient(top, #ebf3fc, #c2d8f4);
-background-image:   -moz-linear-gradient(top, #ebf3fc, #c2d8f4);
-background-image:    -ms-linear-gradient(top, #ebf3fc, #c2d8f4);
-background-image:     -o-linear-gradient(top, #ebf3fc, #c2d8f4);
-background-image:        linear-gradient(top, #ebf3fc, #c2d8f4);
-}
-
-.datatable table td:first-child,
-.datatable table th:first-child {
-border-left:none;
-}
-
-.datatable table th:first-child {
--moz-border-radius:6px 0 0 0;
--webkit-border-radius:6px 0 0 0;
-border-radius:6px 0 0 0;
-}
-
-.datatable table th:last-child {
--moz-border-radius:0 6px 0 0;
--webkit-border-radius:0 6px 0 0;
-border-radius:0 6px 0 0;
-}
-
-.datatable table th:only-child {
--moz-border-radius:6px 6px 0 0;
--webkit-border-radius:6px 6px 0 0;
-border-radius:6px 6px 0 0;
-}
-
-.datatable table tr:last-child td:first-child {
--moz-border-radius:0 0 0 6px;
--webkit-border-radius:0 0 0 6px;
-border-radius:0 0 0 6px;
-}
-
-.datatable table tr:last-child td:last-child {
--moz-border-radius:0 0 6px 0;
--webkit-border-radius:0 0 6px 0;
-border-radius:0 0 6px 0;
 }
 </style>
 </head>
