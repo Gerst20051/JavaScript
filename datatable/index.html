@@ -6,10 +6,10 @@
 +#+        +#+    +#+ +#+        +#+     +#+ +#+     +#+        +#+    +#+      +#+    +#+    +#+                                  
 #+#    #+# #+#    #+# #+#        #+#     #+# #+#     #+#        #+#    #+#      #+#    #+#    #+#    #+#                           
  ########  ###    ### ########## ###     ### ###     ########## #########       #########     ###                                  
-                                                                                                                                   
-                                                                                                                                   
-                                                                                                                                   
-    :::     ::::    ::: :::::::::  :::::::::  :::::::::: :::       :::       ::::::::  :::::::::: :::::::::   :::::::: ::::::::::: 
+																																   
+																																   
+																																   
+	:::     ::::    ::: :::::::::  :::::::::  :::::::::: :::       :::       ::::::::  :::::::::: :::::::::   :::::::: ::::::::::: 
   :+: :+:   :+:+:   :+: :+:    :+: :+:    :+: :+:        :+:       :+:      :+:    :+: :+:        :+:    :+: :+:    :+:    :+:     
  +:+   +:+  :+:+:+  +:+ +:+    +:+ +:+    +:+ +:+        +:+       +:+      +:+        +:+        +:+    +:+ +:+           +:+     
 +#++:++#++: +#+ +:+ +#+ +#+    +:+ +#++:++#:  +#++:++#   +#+  +:+  +#+      :#:        +#++:++#   +#++:++#:  +#++:++#++    +#+     
@@ -37,90 +37,114 @@ font-size:14px;
 <div id="datatable2" class="datatable"></div>
 <script>
 var data = [
-    {
-        "id": 0,
-        "isActive": false,
-        "balance": "$1,233.00",
-        "age": 21,
-        "firstname": "Estes",
-        "lastname": "Bullock",
-        "gender": "male",
-        "company": "Voratak",
-        "email": "estesbullock@voratak.com",
-        "location": "Avoca, Maine"
-    },
-    {
-        "id": 1,
-        "isActive": false,
-        "balance": "$1,714.00",
-        "age": 24,
-        "firstname": "William",
-        "lastname": "Carroll",
-        "gender": "male",
-        "company": "Eweville",
-        "email": "williamcarroll@eweville.com",
-        "location": "Bainbridge, South Dakota"
-    },
-    {
-        "id": 2,
-        "isActive": true,
-        "balance": "$2,640.00",
-        "age": 27,
-        "firstname": "Knowles",
-        "lastname": "Watkins",
-        "gender": "male",
-        "company": "Shepard",
-        "email": "knowleswatkins@shepard.com",
-        "location": "Waterford, Delaware"
-    },
-    {
-        "id": 3,
-        "isActive": true,
-        "balance": "$2,215.00",
-        "age": 35,
-        "firstname": "Suzanne",
-        "lastname": "Sharp",
-        "gender": "female",
-        "company": "Cormoran",
-        "email": "suzannesharp@cormoran.com",
-        "location": "Delwood, Arizona"
-    },
-    {
-        "id": 4,
-        "isActive": true,
-        "balance": "$1,005.00",
-        "age": 25,
-        "firstname": "Dawson",
-        "lastname": "Taylor",
-        "gender": "male",
-        "company": "Emtrak",
-        "email": "dawsontaylor@emtrak.com",
-        "location": "Sedley, New York"
-    },
-    {
-        "id": 5,
-        "isActive": false,
-        "balance": "$2,352.00",
-        "age": 32,
-        "firstname": "Mamie",
-        "lastname": "Orr",
-        "gender": "female",
-        "company": "Opportech",
-        "email": "mamieorr@opportech.com",
-        "location": "Tryon, Idaho"
-    },
-    {
-        "id": 6,
-        "isActive": true,
-        "balance": "$1,255.00",
-        "age": 25,
-        "firstname": "Lamb",
-        "lastname": "Mcfarland",
-        "gender": "male",
-        "company": "Electonic",
-        "email": "lambmcfarland@electonic.com",
-        "location": "Graniteville, Mississippi"
-    }
+	{
+		"id": 0,
+		"isActive": false,
+		"balance": "$1,233.00",
+		"age": 21,
+		"firstname": "Estes",
+		"lastname": "Bullock",
+		"gender": "male",
+		"company": "Voratak",
+		"email": "estesbullock@voratak.com",
+		"location": "Avoca, Maine"
+	},
+	{
+		"id": 1,
+		"isActive": false,
+		"balance": "$1,714.00",
+		"age": 24,
+		"firstname": "William",
+		"lastname": "Carroll",
+		"gender": "male",
+		"company": "Eweville",
+		"email": "williamcarroll@eweville.com",
+		"location": "Bainbridge, South Dakota"
+	},
+	{
+		"id": 2,
+		"isActive": true,
+		"balance": "$2,640.00",
+		"age": 27,
+		"firstname": "Knowles",
+		"lastname": "Watkins",
+		"gender": "male",
+		"company": "Shepard",
+		"email": "knowleswatkins@shepard.com",
+		"location": "Waterford, Delaware"
+	},
+	{
+		"id": 3,
+		"isActive": true,
+		"balance": "$2,215.00",
+		"age": 35,
+		"firstname": "Suzanne",
+		"lastname": "Sharp",
+		"gender": "female",
+		"company": "Cormoran",
+		"email": "suzannesharp@cormoran.com",
+		"location": "Delwood, Arizona"
+	},
+	{
+		"id": 4,
+		"isActive": true,
+		"balance": "$1,005.00",
+		"age": 25,
+		"firstname": "Dawson",
+		"lastname": "Taylor",
+		"gender": "male",
+		"company": "Emtrak",
+		"email": "dawsontaylor@emtrak.com",
+		"location": "Sedley, New York"
+	},
+	{
+		"id": 5,
+		"isActive": false,
+		"balance": "$2,352.00",
+		"age": 32,
+		"firstname": "Mamie",
+		"lastname": "Orr",
+		"gender": "female",
+		"company": "Opportech",
+		"email": "mamieorr@opportech.com",
+		"location": "Tryon, Idaho"
+	},
+	{
+		"id": 6,
+		"isActive": true,
+		"balance": "$1,255.00",
+		"age": 25,
+		"firstname": "Lamb",
+		"lastname": "Mcfarland",
+		"gender": "male",
+		"company": "Electonic",
+		"email": "lambmcfarland@electonic.com",
+		"location": "Graniteville, Mississippi"
+	},
+	{
+		"id": "N/A",
+		"isActive": "N/A",
+		"balance": "N/A",
+		"age": "N/A",
+		"firstname": "N/A",
+		"lastname": "N/A",
+		"gender": "N/A",
+		"company": "N/A",
+		"email": "N/A",
+		"location": "N/A"
+	},
+	{
+		"id": "N/A",
+		"isActive": "N/A",
+		"balance": "N/A",
+		"age": "N/A",
+		"firstname": "N/A",
+		"lastname": "N/A",
+		"gender": "N/A",
+		"company": "N/A",
+		"email": "N/A",
+		"location": "N/A"
+	}
 ];
 
 var datatable = new DataTable();
@@ -128,10 +152,24 @@ datatable.config("#datatable").updateData(data);
 
 var datatable2 = new DataTable();
 datatable2.config("#datatable2", {
-    "goodkeys": ["id", "balance", "company", "location"]
+	"goodkeys": ["id", "balance", "company", "location"]
 }).setData(data).run();
 
+function sortLowerCase(a, b){
+	a = a.toLowerCase();
+	b = b.toLowerCase();
+	return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+}
+
 /*
+datatable.setPrimers({
+	"id": function(a){
+		if (a == "N/A") {
+			return 0;
+		}
+	}
+});
+
 datatable.setPrimers({
 	"price": parseInt,
 	"balance": function(){
@@ -139,7 +177,7 @@ datatable.setPrimers({
 	},
 	"location": function(a){
 		return a.toUpperCase();
-}
+	}
 });
 */
 </script>

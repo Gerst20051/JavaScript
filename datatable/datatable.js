@@ -6,11 +6,13 @@
 
  var sort_by = function(field, reverse, primer){
 	var key = function(x){
+		console.log(x[field], primer && primer(x[field]));
 		return primer ? primer(x[field]) : x[field];
 	};
 
 	return function(a,b){
 		var A = key(a), B = key(b);
+		console.log(A);
 		return ((A < B) ? -1 : ((A > B) ? 1 : 0)) * [-1,1][+!!reverse];                  
 	}
 };
@@ -108,7 +110,7 @@ DataTable.prototype.getHeaders = function(){
 
 DataTable.prototype.sortData = function(){
 	if (this.isSort && this.sortField.length) {
-		this.sortedData.sort(sort_by(this.sortField, this.isReverse));
+		this.sortedData.sort(sort_by(this.sortField, this.isReverse, this.primers[this.sortField]));
 	}
 };
 
