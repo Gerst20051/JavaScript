@@ -1,0 +1,146 @@
+Khan Academy Documentation
+
+
+Shapes
+
+rect(x, y, w, h) 
+Draw a rectangle
+
+ellipse(x, y, w, h) 
+Draw an ellipse
+
+triangle(x1, y1, x2, y2, x3, y3) 
+Draw a triangle
+
+line(x1, y1, x2, y2) 
+Draw a line
+
+point(x, y) 
+Draw a point
+
+arc(x, y, w, h, start, stop) 
+Draw an arc
+
+bezier(x1, y1, cx1, cy1, cx2, cy2, x2, y2) 
+Draw a bezier curve
+
+quad(x1, y1, x2, y2, x3, y3, x4, y4) 
+Draw any quadrilateral
+
+image(image, x, y) 
+Display an image
+
+
+Coloring
+
+background(r, g, b) 
+Set the background color
+
+fill(r, g, b) 
+Set the fill color for shapes
+
+noFill() 
+Turn off fill for shapes
+
+stroke(r, g, b) 
+Set the outline color for shapes
+
+strokeWeight(thickness) 
+Change the thickness of lines and outlines
+
+noStroke() 
+Turn off outlines for shapes
+
+color(r, g, b) 
+Store a color in a variable
+
+
+Text
+
+text(text, x, y) 
+Draw some text
+
+textFont(font, size) 
+Changes the font of text
+
+textSize(size) 
+Change the size of text
+
+
+Mouse
+
+mouseX, mouseY 
+Using the coordinates of the mouse
+
+mouseIsPressed 
+True if mouse is being pressed, false otherwise
+
+var mouseClicked = function() { }; 
+Called when mouse is clicked
+
+var mouseMoved = function() { }; 
+Called when mouse is moved
+
+var mousePressed = function() { }; 
+Called when mouse is pressed
+
+var mouseReleased = function() { }; 
+Called when mouse is released
+Keyboard
+
+var keyPressed = function() { }; 
+Called when a key is pressed
+
+keyCode 
+Number representing which key is pressed
+
+keyIsPressed 
+True if a key is being pressed, false otherwise
+
+
+Math
+
+random(low, high) 
+Generate a random number
+
+dist(x1, y1, x2, y2) 
+Calculates the distance between two points
+
+abs(num) 
+Take the absolute value of a number
+
+log(num) 
+Take the logarithm of a number
+
+pow(num, exponent) 
+Raise a number to an exponent
+
+cos(deg) 
+Take the cosine of an angle
+
+sin(deg) 
+Take the sin of an angle
+
+tan(deg) 
+Take the tangent of an angle
+
+
+Programming Syntax
+
+var drawWinston = function() { }; 
+Define a new function
+
+if (x < 20) { ... } 
+Only run code if a certain condition is true
+
+while (x < 250) { ... } 
+Only run code while a certain condition is true
+
+for (var i = 0; i < 8; i += 1) { } 
+Repeat code a fixed number of times
+
+var array = [0, 1, 2, 3, 4]; 
+Make an array of 5 numbers
+
+debug(arg1, arg2, ...) 
+Print to your browser's developer console
