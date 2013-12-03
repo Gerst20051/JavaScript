@@ -30,17 +30,35 @@
 <script>
 var setup = function(){
 	size(500, 500);
-	grid();
 	background(255, 0, 0);
-	//strokeWeight(10);
-	//point(35, 35);
+	grid();
+	strokeWeight(10);
+	point(35, 35);
+	strokeWeight(4);
+	point(73, 103);
+	fill(0, 0, 255);
+	strokeWeight(1);
+	stroke(255, 255, 255);
+	rect(140, 100, 100, 100);
+	noStroke();
+	noFill();
+	rect(300, 100, 100, 100);
+	stroke(0, 255, 0);
+	strokeWeight(10);
+	line(50, 35, 300, 35);
+	textSize(12);
+	stroke(0, 0, 0);
+	strokeWeight(1);
+	text('Hello', 10, 20);
+	textSize(20);
+	fill(0, 0, 0);
+	stroke(0, 0, 0);
+	strokeWeight(1);
+	text('World!', 30, 20);
 };
 
 var draw = function(){
-	// fill(255, 0, 0);
-	// textSize(12);
-	// fill(240, 126, 65);
-	// text('Level: ' + level, 10, 20);
+
 };
 
 /*
@@ -157,9 +175,9 @@ var mouseClicked = function(){
 */
 
 window.onload = function(){
-	document.getElementById("codepane").innerHTML = window.draw;
+	document.getElementById("codepane").innerHTML = window.setup + window.draw;
 	window.canvas = new Canvas(document.getElementById("canvas1"));
-	window.context = canvas.ctx;
+	window.ctx = canvas.ctx;
 	canvas.setup = window.setup;
 	canvas.draw = window.draw;
 	canvas.run();
