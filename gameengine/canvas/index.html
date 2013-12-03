@@ -3,22 +3,40 @@
 <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 <script src="canvas.js"></script>
 <style>
+#content {
 
+}
+
+#codepane {
+	font-family: monospace;
+	white-space: pre;
+}
+
+#canvaspane {
+
+}
 </style>
 </head>
 <body>
-<div>HnS Game Engine</div>
-<div>
-<div id="codepane">
-
-</div>
+<div><h1>HnS Canvas</h1></div>
+<div id="content">
 <div id="canvaspane">
+<canvas id="canvas1" width="100" height="100"></canvas>
+</div>
+<div id="codepane">
 
 </div>
 </div>
 <script>
-var draw = function(){
+var setup = function(){
+	size(500, 500);
+	grid();
 	background(255, 0, 0);
+	//strokeWeight(10);
+	//point(35, 35);
+};
+
+var draw = function(){
 	// fill(255, 0, 0);
 	// textSize(12);
 	// fill(240, 126, 65);
@@ -137,6 +155,16 @@ var mouseClicked = function(){
 	}
 };
 */
+
+window.onload = function(){
+	document.getElementById("codepane").innerHTML = window.draw;
+	window.canvas = new Canvas(document.getElementById("canvas1"));
+	window.context = canvas.ctx;
+	canvas.setup = window.setup;
+	canvas.draw = window.draw;
+	canvas.run();
+	console.log(canvas);
+};
 </script>
 </body>
 </html>
