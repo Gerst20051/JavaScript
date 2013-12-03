@@ -57,45 +57,38 @@ canvas = {
 	G: 0,
 	B: 0,
 	A: 0,
-};
-
-var nop = function(){},
-	debug = function(){
-		if ("console" in window) return function(msg){
-			window.console.log("Processing.js: " + msg);
-		};
-		return nop
-	}(),
-	noStroke = function(){
-
-	},
-	draw = function(){
-
-	},
-	background = function(){
-
-	},
-	textSize = function(){
-
-	},
-	fill = function(){
-
-	},
-	text = function(){
-
-	},
-	line = function(){
-
-	},
-	rect = function(){
-
-	},
-	mouseClicked = function(){
-
+},
+nop = function(){},
+debug = function(){
+	if ("console" in window) return function(msg){
+		window.console.log("Processing.js: " + msg);
 	};
+	return nop
+}(),
+noStroke = function(){
 
+},
+draw = function(){
 
+},
+background = function(){
 
+},
+textSize = function(){
 
+},
+fill = function(){
 
+},
+text = function(){
 
+},
+line = function(){
+
+},
+rect = function(){
+
+},
+mouseClicked = function(){
+
+};
