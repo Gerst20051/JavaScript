@@ -126,7 +126,12 @@ engage = function(){
 },
 paint = function(){
 	ctx.closePath();
-	ctx.stroke();
+	if (c.doFill) {
+		ctx.fill();
+	}
+	if (c.doStroke) {
+		ctx.stroke();
+	}
 },
 /* Shapes */
 point = function(x, y){ // draw a point
@@ -156,8 +161,10 @@ rect = function(x, y, w, h){ // draw a rectangle
 	}
 	paint();
 },
-arc = function(x, y, w, h, start, stop){ // draw an arc
+arc = function(x, y, radius, start, stop, clockwise){ // draw an arc
 	engage();
+	ctx.arc(x, y, radius, start, stop, clockwise);
+	paint();
 },
 circle = function(x, y, radius){ // draw a circle
 	engage();
@@ -172,6 +179,9 @@ triangle = function(x1, y1, x2, y2, x3, y3){ // draw a triangle
 },
 bezier = function(x1, y1, cx1, cy1, cx2, cy2, x2, y2){ // draw a bezier curve
 	engage();
+	ctx.moveTo(x1, x2);
+	ctx.bezierCurveTo(cx1, cy1, cx2, cy2, x2, y2);
+	paint();
 },
 quad = function(x1, y1, x2, y2, x3, y3, x4, y4){ // draw any quadrilateral
 	engage();

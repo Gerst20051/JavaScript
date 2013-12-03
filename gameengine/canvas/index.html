@@ -4,16 +4,19 @@
 <script src="canvas.js"></script>
 <style>
 #content {
-
+	width: 1024px;
 }
 
 #codepane {
+	float: right;
 	font-family: monospace;
+	width: 500px;
 	white-space: pre;
 }
 
 #canvaspane {
-
+	float: left;
+	width: 500px;
 }
 </style>
 </head>
@@ -28,6 +31,26 @@
 </div>
 </div>
 <script>
+var drawArcs = function(){
+	noFill();
+	stroke(0, 0, 0);
+
+	for (var i = 0; i < 4; i++) {
+		if (1 < i) {
+			fill(255, 255, 255);
+		}
+		for (var j = 0; j < 3; j++) {
+			var x = 25 + j * 50,
+				y = 25 + i * 50,
+				radius = 20,
+				startAngle = 0,
+				endAngle = Math.PI + (Math.PI * j) / 2,
+				clockwise = i % 2 == 0 ? false : true;
+			arc(x, y, radius, startAngle, endAngle, clockwise);
+		}
+	}
+};
+
 var setup = function(){
 	size(500, 500);
 	background(255, 0, 0);
@@ -39,14 +62,14 @@ var setup = function(){
 	fill(0, 0, 255);
 	strokeWeight(1);
 	stroke(255, 255, 255);
-	rect(140, 100, 100, 100);
+	rect(170, 100, 100, 100);
 	noStroke();
 	noFill();
 	rect(300, 100, 100, 100);
 	stroke(0, 255, 0);
 	strokeWeight(10);
 	line(50, 35, 300, 35);
-	textSize(12);
+	textFont('Arial', 12);
 	stroke(0, 0, 0);
 	strokeWeight(1);
 	text('Hello', 10, 20);
@@ -54,7 +77,18 @@ var setup = function(){
 	fill(0, 0, 0);
 	stroke(0, 0, 0);
 	strokeWeight(1);
-	text('World!', 30, 20);
+	text('World!', 50, 23);
+	circle(350, 100, 50);
+	noFill();
+	stroke(0, 0, 255);
+	circle(350, 150, 50);
+	fill(255, 255, 255);
+	noStroke();
+	circle(350, 200, 50);
+	drawArcs();
+	noFill();
+	strokeWeight(6);
+	bezier(100, 250, 150, 100, 350, 100, 400, 250);
 };
 
 var draw = function(){
