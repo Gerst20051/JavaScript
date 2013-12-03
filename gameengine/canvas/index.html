@@ -17,282 +17,126 @@
 </div>
 </div>
 <script>
-var collidePoint,
-	Player,
-	Asteroid,
-	Scene,
-	mainScene,
-	player,
-	asteroids,
-	numAsteroids = 10,
-	minAsteroidSpeed = 2,
-	maxAsteroidSpeed = 8,
-	minAsteroidRadius = 2,
-	maxAsteroidRadius = 25,
-	mapSize = {
-		height: 400,
-		width: 400
-	},
-	collideBuffer = 30,
-	highframes = 0,
-	frames,
-	gameOver;
-
-collidePoint = function(obj1, obj2, buffer){
-	buffer = buffer || 0;
-	if (dist(obj1.getX(), obj1.getY(), obj2.getX(), obj2.getY()) <= obj1.getRadius() + obj2.getRadius() + buffer) {
-		return true;
-	}
-	return false;
+var draw = function(){
+	background(255, 0, 0);
+	// fill(255, 0, 0);
+	// textSize(12);
+	// fill(240, 126, 65);
+	// text('Level: ' + level, 10, 20);
 };
 
-Player = function(){
-	var x, y;
-	
-	this.speed = 5;
-	this.radius = 10;
-	
-	this.init = function(x, y){
-		this.setPosition(x, y);
-	};
-	
-	this.setX = function(newX){
-		x = newX;
-	};
-	
-	this.getX = function(){
-		return x;
-	};
-	
-	this.setY = function(newY){
-		y = newY;
-	};
-	
-	this.getY = function(){
-		return y;
-	};
-	
-	this.setPosition = function(newX, newY){
-		x = newX;
-		y = newY;
-	};
-	
-	this.getSpeed = function(){
-		return this.speed;
-	};
-	
-	this.getRadius = function(){
-		return this.radius;
-	};
-	
-	this.step = function(){
-		var spacing, safe = true;
-		
-		for (var i = 0, l = asteroids.length; i < l; i++) {
-			if (collidePoint(player, asteroids[i], collideBuffer)) {
-				spacing = player.getY() - asteroids[i].getY();
-				safe = false;
-				
-				if (spacing > 0) {
-					if (player.getY() < mapSize.height - asteroids[i].getRadius() - 5) {
-						player.setY(player.getY() + player.getSpeed());
-					} else {
-						player.setY(player.getY() - player.getSpeed());
-					}
-				} else {
-					if (player.getY() > asteroids[i].getRadius() + 55) {
-						player.setY(player.getY() - player.getSpeed());
-					} else {
-						player.setY(player.getY() + player.getSpeed());
-					}
-				}
-			}
-		}
-		
-		if (safe === true) {
-			if (player.getY() < Asteroid.prototype.radius + 100) {
-				player.setY(player.getY() + (player.getSpeed() * 1.2));
-			} else if (player.getY() > mapSize.height - Asteroid.prototype.radius - 50) {
-				player.setY(player.getY() - (player.getSpeed() * 1.2));
-			}
-		}
-	};
-};
+/*
+noStroke();
 
-Asteroid = function(x, y){    
-	x = x || random(mapSize.width - 50, mapSize.width + 200);
-	y = y || random(0 + this.radius + 55, mapSize.height - this.radius - 5);
-	
-	this.setX = function(newX){
-		x = newX;
-	};
-	
-	this.getX = function(){
-		return x;
-	};
-	
-	this.setY = function(newY){
-		y = newY;
-	};
-	
-	this.getY = function(){
-		return y;
-	};
-	
-	this.setPosition = function(newX, newY){
-		x = newX;
-		y = newY;
-	};
-	
-	this.getSpeed = function(){
-		return this.speed;
-	};
-	
-	this.setSpeed = function(newSpeed){
-		var pivot = random(0, 100);
-		if (pivot < 3) {
-			this.speed = newSpeed; 
-		}
-	};
-	
-	this.getRadius = function(){
-		return this.radius;
-	};
-	
-	this.setRadius = function(newRadius){
-		var pivot = random(0, 100);
-		if (pivot < 3) {
-			this.radius = newRadius;
-		}
-	};
-	
-	this.step = function(){
-		this.setX(this.getX() - this.getSpeed());
-		this.setSpeed(random(minAsteroidSpeed, maxAsteroidSpeed));
-		this.setRadius(random(minAsteroidRadius, maxAsteroidRadius));
-	};
-};
-
-Asteroid.prototype.radius = 20;
-Asteroid.prototype.speed = 5;
-
-Scene = function(){
-	this.init = function(){
-		player = new Player();
-		player.init(150, 200);
-		
-		asteroids = [];
-		this.generateAsteroids(numAsteroids);
-		
-		frames = 0;
-		gameOver = false;
-	};
-	
-	this.generateAsteroids = function(num){
-		for (var i = 0; i < num; i++) {
-			asteroids.push(new Asteroid());
-		}
-	};
-	
-	this.monitorAsteroids = function(){
-		var deletedAsteroids = [];
-		
-		for (var i = 0, l = asteroids.length; i < l; i++) {
-			if (asteroids[i].getX() <= -asteroids[i].getRadius()) {
-				deletedAsteroids.push(i);
-			}
-		}
-		
-		this.generateAsteroids(deletedAsteroids.length);
-		
-		while (deletedAsteroids.length) {
-			asteroids.splice(deletedAsteroids[0], 1);
-			deletedAsteroids.splice(0, 1);
-			for (i = 0; i < deletedAsteroids.length; i++) {
-				deletedAsteroids[i] = deletedAsteroids[i] - 1;
-			}
-		}
-		
-		for (i = 0; i < deletedAsteroids; i++) {
-			asteroids.splice(i, 1);
-		}
-	};
-	
-	this.monitorCollisions = function(){
-		for (var i = 0, l = asteroids.length; i < l; i++) {
-			if (collidePoint(player, asteroids[i])) {
-				this.gameOver();
-			}
-		}
-	};
-	
-	this.gameOver = function(){
-		if (frames > highframes) {
-			highframes = frames;
-		}
-		
-		gameOver = true;
-	};
-	
-	this.retry = function(){
-		this.init();
-	};
-};
-
-mainScene = new Scene();
-mainScene.init();
+var paddleWidth = 100,
+	initialSpeedX = 5,
+	initialSpeedY = -6,
+	ballSpeedX = initialSpeedX,
+	ballSpeedY = initialSpeedY,
+	ballX = 0,
+	ballY = 0,
+	ballMoving = false,
+	started = false,
+	colorVal = 0,
+	dir = 1,
+	level = 0,
+	oldlevel = 0,
+	record = 0,
+	oldrecord = 0;
 
 var draw = function(){
-	background(164, 177, 242);
-	
-	// Draw Title
-	textSize(42);
-	fill(255, 255, 255);
-	text('AI Asteroids', 90, 50);
-	
-	if (!gameOver) {
-		// Draw Player
-		stroke(240, 123, 65);
-		strokeWeight(player.getRadius() * 2);
-		point(player.getX(), player.getY());
-		player.step();
-		
-		// Draw Asteroids
-		stroke(0, 0, 0);
-		for (var i = 0, l = asteroids.length; i < l; i++) {
-			strokeWeight(asteroids[i].getRadius() * 2);
-			point(asteroids[i].getX(), asteroids[i].getY());
-			asteroids[i].step();
+	if (ballMoving === true) {
+		if (0 < dir && colorVal < 255) {
+			colorVal++;
+		} else if (0 > dir && 0 < colorVal) {
+			colorVal--;
+		} else if (colorVal === 255 || colorVal === 0) {
+			dir = -dir;
 		}
-		
-		mainScene.monitorAsteroids();
-		mainScene.monitorCollisions();
-		
-		frames++;
+	}
+
+	background(0, 108, colorVal);
+
+	if (0 < level) {
+		textSize(12);
+		fill(240, 126, 65);
+		text('Level: ' + level, 10, 20);
+	}
+
+	if (ballMoving === true || started === false) {
+		fill(240, 126, 65);
+		rect(mouseX - paddleWidth/2, 350, paddleWidth, 10);
+	}
+
+	if (ballMoving) {
+		ballX += ballSpeedX;
+		ballY += ballSpeedY;
 	} else {
-		textSize(60);
-		fill(255, 0, 0);
-		text('Game Over', 46, 140);
-		textSize(60);
-		fill(37, 95, 196);
-		text('Score: ', 46, 230);
-		textSize(60);
-		fill(255, 255, 255);
-		text((frames / 30) | 0, 225, 230);
-		fill(37, 95, 196);
-		text('High: ', 46, 320);
-		fill(255, 255, 255);
-		text((highframes / 30) | 0, 192, 320);
-		textSize(18);
-		fill(255, 255, 255);
-		text('Click to Retry!', 143, 380);
+		ballX = mouseX;
+		ballY = 340;
+		textSize(20);
+		if (0 < level) {
+			oldlevel = level;
+		}
+		if (oldlevel >= oldrecord && started === true) {
+			fill(255, 0, 0);
+			text('Congrats '+'New'+' Record!', 90, 150);
+			textSize(16);
+			fill(0, 0, 0);
+			text('New'+' Record: ' + oldlevel, 143, 220);
+			text('Old Record: ' + oldrecord, 150, 250);
+			if (0 < level) {
+				record = level;
+				oldrecord = level;
+			}
+		} else if (started === true) {
+			fill(255, 0, 0);
+			text('Game Over', 150, 150);
+			textSize(16);
+			fill(0, 0, 0);
+			text('Level: ' + oldlevel, 179, 220);
+			text('Your Record: ' + oldrecord, 130, 250);
+		}
+		level = 0;
+		record = 0;
+	}
+
+	if (ballMoving === true || started === false) {
+		fill(255, 234, 0);
+		ellipse(ballX, ballY, 20, 20);
+	}
+
+	if (ballY <= 10) {
+		ballSpeedY = -ballSpeedY;
+	}
+	if (ballX <= 10) {
+		ballSpeedX = -ballSpeedX;
+	}
+	if (ballX >= 390) {
+		ballSpeedX = -ballSpeedX;
+	}
+	if (ballY >= 340 && ballY < 346 && ballX >= mouseX - (paddleWidth)/2 - 10 && ballX <= mouseX + (paddleWidth)/2 + 10) {
+		ballSpeedY = -ballSpeedY;
+		if (ballMoving === true) {
+			level += 1;
+			ballSpeedX += (0 < ballSpeedX) ? 1 : -1;
+			ballSpeedY += (0 < ballSpeedY) ? 1 : -1;
+		}
+	}
+	if (ballY >= 400) {
+		ballMoving = false;
 	}
 };
 
 var mouseClicked = function(){
-	mainScene.retry();
+	if (!ballMoving) {
+		ballSpeedX = initialSpeedX;
+		ballSpeedY = initialSpeedY;
+		ballMoving = true;
+		started = true;
+	}
 };
-
+*/
 </script>
 </body>
 </html>
