@@ -241,7 +241,7 @@ var mouseClicked = function(){
 */
 
 window.onload = function(){
-	document.getElementById("codepane").innerHTML = window.setup + window.draw;
+	document.getElementById("codepane").innerHTML = window.setup + "<br/><br/>" + window.draw + "<br/><br/>";
 	window.canvas = new Canvas(document.getElementById("canvas1"));
 	window.ctx = canvas.ctx;
 	canvas.setup = window.setup;
