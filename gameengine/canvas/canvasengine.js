@@ -1,13 +1,65 @@
-window.requestAnimFrame = (function requestAnimFrame(){
-	return window.requestAnimationFrame ||
-	window.webkitRequestAnimationFrame ||
-	window.mozRequestAnimationFrame ||
-	window.oRequestAnimationFrame ||
-	window.msRequestAnimationFrame ||
-	function (callback){
-		window.setTimeout(callback, 1000 / 60);
+/*
+ ********************************************
+ *** CanvasEngine created by Andrew Gerst ***
+ ********************************************
+ */
+
+function addEvent(obj, type, fn){
+	if (obj.attachEvent) {
+		obj['e'+type+fn] = fn;
+		obj[type+fn] = function(){obj['e'+type+fn](window.event);}
+		obj.attachEvent('on'+type, obj[type+fn]);
+	} else {
+		obj.addEventListener(type, fn, false);
 	}
-})();
+}
+
+function removeEvent(obj, type, fn) {
+	if (obj.detachEvent) {
+		obj.detachEvent('on'+type, obj[type+fn]);
+		obj[type+fn] = null;
+	} else {
+		obj.removeEventListener(type, fn, false);
+	}
+}
+
+function calculateOffset(curElement, event){
+	var element = curElement, offsetX = 0, offsetY = 0;
+	pmouseX = mouseX;
+	pmouseY = mouseY;
+
+	if (element.offsetParent) {
+		do {
+			offsetX += element.offsetLeft;
+			offsetY += element.offsetTop
+		} while ( !! (element = element.offsetParent));
+	}
+
+	element = curElement;
+
+	do {
+		offsetX -= element.scrollLeft || 0;
+		offsetY -= element.scrollTop || 0;
+	} while ( !! (element = element.parentNode));
+
+	offsetX += stylePaddingLeft;
+	offsetY += stylePaddingTop;
+	offsetX += styleBorderLeft;
+	offsetY += styleBorderTop;
+	offsetX += window.pageXOffset;
+	offsetY += window.pageYOffset;
+
+	return {
+		"X": offsetX,
+		"Y": offsetY
+	};
+}
+
+function updateMousePosition(curElement, e){
+	var offset = calculateOffset(curElement, e);
+	mouseX = e.pageX - offset.X;
+	mouseY = e.pageY - offset.Y;
+}
 
 (function(){
 	var lastTime = 0,
@@ -100,12 +152,22 @@ c = {
 	color: [0, 0, 0, 0],
 	font: "12px Arial",
 	fontSize: 12,
-	fontStyle: "Arial",
-	mouseX: 0,
-	mouseY: 0,
-	mousePressed: false,
-	keyIsPressed: false
+	fontStyle: "Arial"
 },
+pmouseX = 0,
+pmouseY = 0,
+mouseX = 0,
+mouseY = 0,
+mouseIsPressed = false,
+keyIsPressed = false,
+curElement,
+stylePaddingLeft,
+stylePaddingTop,
+styleBorderLeft,
+styleBorderTop,
+looping = 0,
+doLoop = true,
+loopStarted = false,
 nop = function(){},
 debug = function(){
 	if ("console" in window) return function(msg){
@@ -113,6 +175,17 @@ debug = function(){
 	};
 	return nop;
 }(),
+noLoop = function(){
+	doLoop = false;
+	loopStarted = false;
+	cancelAnimationFrame(looping);
+},
+loop = function(){
+	if (loopStarted) return;
+	looping = window.requestAnimationFrame(canvas.animloop);
+	doLoop = true;
+	loopStarted = true;
+},
 size = function(w, h){
 	canvas.size(w, h);
 },
@@ -173,9 +246,28 @@ circle = function(x, y, radius){ // draw a circle
 },
 ellipse = function(x, y, w, h){ // draw an ellipse
 	engage();
+	x -= 0.5 * w;
+	y -= 0.5 * h;
+	var k = 0.55; // kappa = (-1 + sqrt(2)) / 3 * 4 
+	var dx = k * 0.5 * w;
+	var dy = k * 0.5 * h;
+	var x0 = x + 0.5 * w;
+	var y0 = y + 0.5 * h;
+	var x1 = x + w;
+	var y1 = y + h;
+	ctx.moveTo(x, y0);
+	ctx.bezierCurveTo(x, y0 - dy, x0 - dx, y, x0, y);
+	ctx.bezierCurveTo(x0 + dx, y, x1, y0 - dy, x1, y0);
+	ctx.bezierCurveTo(x1, y0 + dy, x0 + dx, y1, x0, y1);
+	ctx.bezierCurveTo(x0 - dx, y1, x, y0 + dy, x, y0);
+	paint();
 },
 triangle = function(x1, y1, x2, y2, x3, y3){ // draw a triangle
 	engage();
+	ctx.moveTo(x1 + c.O, y1 + c.O);
+	ctx.lineTo(x2 + c.O, y2 + c.O);
+	ctx.lineTo(x3 + c.O, y3 + c.O);
+	paint();
 },
 bezier = function(x1, y1, cx1, cy1, cx2, cy2, x2, y2){ // draw a bezier curve
 	engage();
@@ -285,14 +377,6 @@ grid = function(interval){
 	paint();
 };
 
-/*
-fillStyle property can be a CSS color, a pattern, or a gradient.
-fillRect(x, y, width, height) draws a rectangle filled with the current fill style.
-strokeStyle property is like fillStyle.
-strokeRect(x, y, width, height) draws an rectangle with the current stroke style. strokeRect doesn’t fill in the middle; it just draws the edges.
-clearRect(x, y, width, height) clears the pixels in the specified rectangle.
-*/
-
 function Canvas(canvas){
 	this.canvas = canvas;
 	this.ctx = canvas.getContext("2d");
@@ -300,22 +384,56 @@ function Canvas(canvas){
 	this.draw = nop;
 
 	this.run = function(){
+		curElement = canvas;
 		this.size(400, 400);
+		this.compute();
+		this.attachHandlers();
 		this.setup();
 		this.animloop();
+		loopStarted = true;
 	};
 
 	this.animloop = function(){
-		window.requestAnimFrame(this.animloop);
+		looping = window.requestAnimationFrame(this.animloop);
 		this.draw();
 	}.bind(this);
 
 	this.size = function(w, h){
 		if (this.ctx) {
-			this.canvas.width = c.W = w+1;
-			this.canvas.height = c.H = h+1;
+			canvas.width = c.W = ++w;
+			canvas.height = c.H = ++h;
 		}
 		c.X = this.canvas.offsetLeft;
 		c.Y = this.canvas.offsetTop;
-	}
+	};
+
+	this.compute = function(){
+		if (document.defaultView && document.defaultView.getComputedStyle) {
+			stylePaddingLeft = parseInt(document.defaultView.getComputedStyle(curElement, null)["paddingLeft"], 10) || 0;
+			stylePaddingTop = parseInt(document.defaultView.getComputedStyle(curElement, null)["paddingTop"], 10) || 0;
+			styleBorderLeft = parseInt(document.defaultView.getComputedStyle(curElement, null)["borderLeftWidth"], 10) || 0;
+			styleBorderTop = parseInt(document.defaultView.getComputedStyle(curElement, null)["borderTopWidth"], 10) || 0
+		}
+	};
+
+	this.attachHandlers = function(){
+		addEvent(canvas, 'mousemove', onMouseMove);
+		addEvent(canvas, 'mousedown', onMouseDown);
+		addEvent(canvas, 'mouseup', onMouseUp);
+		addEvent(canvas, 'click', mouseClicked);
+	};
 }
+
+var onMouseMove = function(e){
+	updateMousePosition(curElement, e);
+};
+
+var onMouseDown = function(e){
+	mouseIsPressed = true;
+};
+
+var onMouseUp = function(e){
+	mouseIsPressed = false;
+};
+
+var mouseClicked = mouseClicked || nop;
