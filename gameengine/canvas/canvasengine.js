@@ -378,6 +378,9 @@ translate = function(x, y){ // translates the canvas transform.
 rotate = function(degs){ // rotates the canvas transform.
 	ctx.rotate(degs);
 },
+begin = function(x, y){
+	ctx.moveTo(x, y);
+},
 /* Shapes */
 point = function(x, y){ // draw a point
 	engage();
@@ -446,6 +449,9 @@ bezier = function(x1, y1, cx1, cy1, cx2, cy2, x2, y2){ // draw a bezier curve
 	ctx.moveTo(x1, x2);
 	ctx.bezierCurveTo(cx1, cy1, cx2, cy2, x2, y2);
 	paint();
+},
+bezierCurve = function(cx1, cy1, cx2, cy2, x2, y2){ // draw a bezier curve
+	ctx.bezierCurveTo(cx1, cy1, cx2, cy2, x2, y2);
 },
 quad = function(x1, y1, x2, y2, x3, y3, x4, y4){ // draw any quadrilateral
 	engage();
@@ -617,10 +623,10 @@ function Canvas(canvas){
 	};
 
 	this.attachHandlers = function(){
-		addEvent(canvas, 'mousemove', onMouseMove);
-		addEvent(canvas, 'mousedown', onMouseDown);
-		addEvent(canvas, 'mouseup', onMouseUp);
-		addEvent(canvas, 'click', mouseClicked);
+		addEvent(canvas, 'mousemove', onMouseMove || nop);
+		addEvent(canvas, 'mousedown', onMouseDown || nop);
+		addEvent(canvas, 'mouseup', onMouseUp || nop);
+		addEvent(canvas, 'click', mouseClicked || nop);
 	};
 }
 
@@ -635,5 +641,3 @@ var onMouseDown = function(e){
 var onMouseUp = function(e){
 	mouseIsPressed = false;
 };
-
-var mouseClicked = mouseClicked || nop;
