@@ -102,6 +102,7 @@ var colors = {
 	carolinablue: "#56A0D3",
 	chartreuse: "#7fff00",
 	chocolate: "#d2691e",
+	cloudblue: '#8ed6ff',
 	coral: "#ff7f50",
 	cornflowerblue: "#6495ed",
 	cornsilk: "#fff8dc",
@@ -167,6 +168,9 @@ var colors = {
 	limegreen: "#32cd32",
 	linen: "#faf0e6",
 	magenta: "#ff00ff",
+	mario: "fb8b15",
+	mariobrown: "684602",
+	mariored: "fb0007",
 	maroon: "#800000",
 	mediumaquamarine: "#66cdaa",
 	mediumblue: "#0000cd",
@@ -333,6 +337,8 @@ c = {
 	Y: 0,
 	O: 0.5,
 	grid: false,
+	fullScreen: false,
+	globalAlpha: 1,
 	background: "rgba(0, 0, 0, 1)",
 	fillStyle: "rgba(0, 0, 0, 1)",
 	doFill: true,
@@ -341,6 +347,7 @@ c = {
 	lineWidthHalf: 0.5,
 	lineCap: "round",
 	doStroke: true,
+	doClosePath: false,
 	color: [0, 0, 0, 0],
 	font: "12px Arial",
 	fontSize: 12,
@@ -353,6 +360,7 @@ mouseY = 0,
 mouseIsPressed = false,
 keyCode = 0,
 keyIsPressed = false,
+keyCodeList = [],
 curElement,
 stylePaddingLeft,
 stylePaddingTop,
@@ -387,12 +395,17 @@ loop = function(){
 	loopStarted = true;
 },
 size = function(w, h){
+	if (!c.fullScreen) {
+		w++, h++;
+	}
 	canvas.size(w, h);
 },
 fullScreen = function(){
+	c.fullScreen = true;
 	size(maxWidth, maxHeight);
 },
 engage = function(){
+	ctx.globalAlpha = c.globalAlpha;
 	ctx.fillStyle = c.fillStyle;
 	ctx.strokeStyle = c.strokeStyle;
 	ctx.lineWidth = c.lineWidth;
@@ -401,7 +414,9 @@ engage = function(){
 	ctx.beginPath();
 },
 paint = function(){
-	ctx.closePath();
+	if (c.doClosePath) {
+		ctx.closePath();
+	}
 	if (c.doFill) {
 		ctx.fill();
 	}
@@ -504,9 +519,41 @@ bezierCurve = function(cx1, cy1, cx2, cy2, x2, y2){ // draw a bezier curve
 },
 quad = function(x1, y1, x2, y2, x3, y3, x4, y4){ // draw any quadrilateral
 	engage();
+	ctx.moveTo(x1 + c.O, y1 + c.O);
+	ctx.lineTo(x2 + c.O, y2 + c.O);
+	ctx.lineTo(x3 + c.O, y3 + c.O);
+	ctx.lineTo(x4 + c.O, y4 + c.O);
+	ctx.lineTo(x1 + c.O, y1 + c.O);
+	paint();
 },
-image = function(image, x, y){ // display an image
+image = function(img, sx, sy, swidth, sheight, x, y, width, height){ // display an image
+	var numArgs = arguments.length, image, drawImage;
 	engage();
+
+	drawImage = function(){
+		if (numArgs === 3) {
+			// img, x, y
+			ctx.drawImage(image, sx, sy);
+		} else if (numArgs === 5) {
+			// img, x, y, width, height
+			ctx.drawImage(image, sx, sy, swidth, sheight);
+		} else if (numArgs === 7) {
+			ctx.drawImage(image, sx, sy, swidth, sheight, x, y, swidth, sheight);
+		} else if (numArgs === 9) {
+			ctx.drawImage(image, sx, sy, swidth, sheight, x, y, width, height);
+		}
+	};
+
+	if (typeof img === "string") {
+		if (numArgs === 3 || numArgs === 5 || numArgs === 7 || numArgs === 9) {
+			image = new Image();
+			image.src = img;
+			image.onload = drawImage;
+		}
+	} else {
+		image = img;
+		drawImage();
+	}
 },
 path = function(steps){
 	var length = steps.length, i;
@@ -516,6 +563,12 @@ path = function(steps){
 		ctx.lineTo(steps[i].x, steps[i].y);
 	}
 	paint();
+},
+closePath = function(){
+	c.doClosePath = true;
+},
+noClosePath = function(){
+	c.doClosePath = false;
 },
 /* Coloring */
 background = function(r, g, b, a){ // set the background color
@@ -565,6 +618,12 @@ color = function(r, g, b, a){ // store a color in a variable
 		return r;
 	}
 },
+lineCap = function(lineCap){
+	c.lineCap = lineCap;
+},
+alpha = function(alpha){
+	c.globalAlpha = alpha;
+},
 /* Text */
 text = function(text, x, y){ // draw some text
 	var oldStrokeWeight = c.strokeWeight;
@@ -575,7 +634,6 @@ text = function(text, x, y){ // draw some text
 	} else if (c.doFill) {
 		ctx.fillText(text, x, y);
 	}
-	stroke();
 	c.strokeWeight = oldStrokeWeight;
 },
 textFont = function(font, size){ // changes the font of the text
@@ -671,8 +729,8 @@ function Canvas(canvas){
 
 	this.size = function(w, h){
 		if (this.ctx) {
-			canvas.width = c.W = ++w;
-			canvas.height = c.H = ++h;
+			canvas.width = c.W = w;
+			canvas.height = c.H = h;
 		}
 		c.X = this.canvas.offsetLeft;
 		c.Y = this.canvas.offsetTop;
@@ -719,13 +777,15 @@ var onMouseClicked = function(e){
 
 var onKeyDown = function(e){
 	keyCode = keycode.getKeyCode(e);
+	keyCodeList[keyCode] = true;
 	keyDown();
 	e.preventDefault();
 };
 
 var onKeyUp = function(e){
-	keyCode = 0;
+	keyCodeList[keycode.getKeyCode(e)] = false;
 	keyIsPressed = false;
+	keyCode = 0;
 	keyUp();
 	e.preventDefault();
 };
