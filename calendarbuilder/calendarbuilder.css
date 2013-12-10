@@ -1,0 +1,112 @@
+body {
+	background-color: #fff;
+	color: #2f2f2f;
+	font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
+	font-size: 13px;
+	padding: 20px;
+	text-align: center;
+}
+
+.clear:before,
+.clear:after {
+	content: "\0020";
+	display: block;
+	height: 0;
+	overflow: hidden;
+}
+
+.clear:after {
+	clear: both;
+}
+
+@media print {
+	body {
+		padding: 0;
+	}
+
+	.calendardisplay {
+		background-color: #fff;
+	}
+}
+
+.calendardoc {
+	margin: auto;
+	padding: 10px;
+	text-align: left;
+	width: 720px;
+}
+
+.calendartimeline {
+	float: left;
+	font-size: 13px;
+	height: 720px;
+	padding-right: 8px;
+	position: relative;
+	text-align: right;
+	top: -9px;
+	width: 90px;
+}
+
+.calendartimeline > div:not(:first-child) {
+	margin-top: 14px;
+}
+
+.bigtime {
+	color: #666;
+	font-weight: bold;
+	padding-right: 10px;
+}
+
+.smalltime {
+	color: #a6a6a6;
+	font-size: 9px;
+}
+
+.calendardisplay {
+	background-color: #e7e7e7;
+	border-left: 1px solid #cbcbcb;
+	float: right;
+	height: 720px;
+	padding: 0 10px;
+	position: relative;
+	width: 600px;
+}
+
+.calendarevent {
+	background-color: #fff;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+}
+
+.eventborder {
+	background-color: #3b5998;
+	float: left;
+	height: 100%;
+	border: solid #3b5998;
+	border-width: 1px 0;
+	position: relative;
+	width: 5px;
+}
+
+.eventcontent {
+	border: 1px solid #cbcbcb;
+	border-left: 0;
+	height: 100%;
+}
+
+.eventdisplay {
+	margin-left: 12px;
+	margin-top: 5px;
+}
+
+.eventtitle {
+	color: #3b5998;
+	font-size: 11px;
+	font-weight: bold;
+}
+
+.eventtext {
+	color: #a6a6a6;
+	font-size: 9px;
+}

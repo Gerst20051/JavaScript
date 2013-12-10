@@ -1,0 +1,25 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<title>Calendar Builder</title>
+<script src="calendarbuilder.js"></script>
+<link href="http://yui.yahooapis.com/3.14.0/build/cssnormalize/cssnormalize-min.css" rel="stylesheet" type="text/css">
+<link href="calendarbuilder.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div id="calendar" class="calendardoc clear"></div>
+<script>
+var calendarevents = [
+	{start: 560, end: 620},
+	{start: 610, end: 670},
+	{start: 30, end: 150},
+	{start: 540, end: 600}
+];
+
+var mycalendar = new CalendarBuilder();
+mycalendar.config("#calendar").updateEvents(calendarevents);
+
+function layOutDay(events){
+	mycalendar.updateData(events);
+}
+</script>
+</body>
+</html>
