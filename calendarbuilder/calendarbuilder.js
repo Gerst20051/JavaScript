@@ -66,6 +66,7 @@ var CalendarBuilder = function(){
 		this.sortData();
 		this.parseEvents();
 		this.findDepths();
+		this.computeEvents();
 		this.setupCalendar();
 		this.printCalendar();
 	};
@@ -108,12 +109,18 @@ CalendarBuilder.prototype.findDepths = function(){
 	_this = this;
 	this.events.forEach(function(event, index){
 		for (var i = index + 1; i < _this.events.length; i++) {
-			if (_this.events[i].begin <= event.end) {
+			if (_this.events[i].start <= event.end) {
 				event.depth++;
 				_this.events[i].depth++;
 				_this.events[i].order++;
 			}
 		}
+	});
+};
+
+CalendarBuilder.prototype.computeEvents = function(){
+	this.events.forEach(function(event){
+		event.compute();
 	});
 };
 
