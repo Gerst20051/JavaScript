@@ -51,6 +51,7 @@ var CalendarBuilder = function(){
 	this.startHour = 9;
 	this.endHour = 21;
 	this.events = [];
+	this.eventGroups = [];
 	this.output = [];
 	this.tree = [];
 
@@ -61,10 +62,12 @@ var CalendarBuilder = function(){
 
 	this.run = function(){
 		this.events.length = 0;
+		this.eventGroups.length = 0;
 		this.output.length = 0;
 		this.tree.length = 0;
 		this.sortData();
 		this.parseEvents();
+		this.findGroups();
 		this.findDepths();
 		this.computeEvents();
 		this.setupCalendar();
@@ -97,7 +100,7 @@ CalendarBuilder.prototype.updateEvents = function(data){
 };
 
 CalendarBuilder.prototype.parseEvents = function(){
-	_this = this;
+	var _this = this;
 	this.sortedData.forEach(function(event){
 		var evt = new CalendarEvent(event.start, event.end);
 		evt.compute();
@@ -105,15 +108,38 @@ CalendarBuilder.prototype.parseEvents = function(){
 	});
 };
 
-CalendarBuilder.prototype.findDepths = function(){
-	_this = this;
+CalendarBuilder.prototype.findGroups = function(){
+	var _this = this, currentGroup, lastEnd = -1;
 	this.events.forEach(function(event, index){
-		for (var i = index + 1; i < _this.events.length; i++) {
-			if (_this.events[i].start <= event.end) {
-				event.depth++;
-				_this.events[i].depth++;
-				_this.events[i].order++;
+		if (!currentGroup || lastEnd < event.start) {
+			currentGroup = [];
+			_this.eventGroups.push(currentGroup);
+		}
+		currentGroup.push(event);
+		lastEnd = Math.max(lastEnd, event.end);
+	});
+};
+
+CalendarBuilder.prototype.findDepths = function(){
+	var _this = this;
+	this.eventGroups.forEach(function(group, gindex){
+		var i, a, b, curDepth = 1;
+		if (group.length === 1) return;
+		for (i = 0; i < group.length - 1; i++) {
+			a = group[i];
+			b = group[i + 1];
+			if ((a.start <= b.start && a.end > b.start) || (a.start < b.start && a.end >= b.end)) {
+				console.log(a, b);
+				if (i < group.length - 2) {
+					curDepth++;
+					b.order++;
+				} else {
+					a.order++;
+				}
 			}
+		}
+		for (i = 0; i < group.length; i++) {
+			group[i].depth = curDepth;
 		}
 	});
 };

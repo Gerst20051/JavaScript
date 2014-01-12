@@ -348,7 +348,9 @@ c = {
 	color: [0, 0, 0, 0],
 	font: "12px Arial",
 	fontSize: 12,
-	fontStyle: "Arial"
+	fontStyle: "Arial",
+	pathOffsetX: 0,
+	pathOffsetY: 0
 },
 pmouseX = 0,
 pmouseY = 0,
@@ -552,12 +554,16 @@ image = function(img, sx, sy, swidth, sheight, x, y, width, height){ // display 
 		drawImage();
 	}
 },
+pathOffset = function(x, y){
+	c.pathOffsetX = x || 0;
+	c.pathOffsetY = y || 0;
+},
 path = function(steps){
 	var length = steps.length, i;
 	engage();
 	ctx.moveTo(steps[0].x, steps[0].y);
 	for (i = 1; i < length; i++) {
-		ctx.lineTo(steps[i].x, steps[i].y);
+		ctx.lineTo(c.pathOffsetX + steps[i].x, c.pathOffsetY + steps[i].y);
 	}
 	paint();
 },
@@ -566,6 +572,50 @@ closePath = function(){
 },
 noClosePath = function(){
 	c.doClosePath = false;
+},
+/* Math */
+random = function(low, high){ // generate a random number
+	return Math.floor(Math.random() * (high - low + 1)) + low;
+},
+floor = function(num){
+	return Math.floor(num);
+},
+ceil = function(num){
+	return Math.ceil(num);
+},
+round = function(num){
+	return Math.round(num);
+},
+dist = function(x1, y1, x2, y2){ // calculates the distance between two points
+	var xs = x2 - x1, ys = y2 - y1;
+	return Math.sqrt(xs * xs + ys * ys);
+},
+abs = function(num){ // take the absolute value of a number
+	return Math.abs(num);
+},
+log = function(num){ // take the logarithm of a number
+	return Math.log(num);
+},
+pow = function(num, exponent){ // raise a number to an exponent
+	return Math.pow(num, exponent);
+},
+cos = function(deg){ // cake the cosine of an angle
+	return Math.cos(deg);
+},
+sin = function(deg){ // take the sin of an angle
+	return Math.sin(deg);
+},
+tan = function(deg){ // take the tangent of an angle
+	return Math.tan(deg);
+},
+hour = function(){
+	return new Date().getHours();
+},
+minute = function(){
+	return new Date().getMinutes();
+},
+second = function(){
+	return new Date().getSeconds();
 },
 /* Coloring */
 background = function(r, g, b, a){ // set the background color
@@ -615,6 +665,9 @@ color = function(r, g, b, a){ // store a color in a variable
 		return r;
 	}
 },
+randomColor = function(){ // store a random color in a variable
+	return color(random(0, 255), random(0, 255), random(0, 255));
+},
 lineCap = function(lineCap){
 	c.lineCap = lineCap;
 },
@@ -642,50 +695,7 @@ textSize = function(size){ // change the size of text
 	c.textSize = size;
 	c.font = size + "px " + c.fontStyle;
 },
-/* Math */
-random = function(low, high){ // generate a random number
-	return Math.floor(Math.random() * (high - low + 1)) + low;
-},
-floor = function(num){
-	return Math.floor(num);
-},
-ceil = function(num){
-	return Math.ceil(num);
-},
-round = function(num){
-	return Math.round(num);
-},
-dist = function(x1, y1, x2, y2){ // calculates the distance between two points
-	var xs = x2 - x1, ys = y2 - y1;
-	return Math.sqrt(xs * xs + ys * ys);
-},
-abs = function(num){ // take the absolute value of a number
-	return Math.abs(num);
-},
-log = function(num){ // take the logarithm of a number
-	return Math.log(num);
-},
-pow = function(num, exponent){ // raise a number to an exponent
-	return Math.pow(num, exponent);
-},
-cos = function(deg){ // cake the cosine of an angle
-	return Math.cos(deg);
-},
-sin = function(deg){ // take the sin of an angle
-	return Math.sin(deg);
-},
-tan = function(deg){ // take the tangent of an angle
-	return Math.tan(deg);
-},
-hour = function(){
-	return new Date().getHours();
-},
-minute = function(){
-	return new Date().getMinutes();
-},
-second = function(){
-	return new Date().getSeconds();
-},
+/* Misc */
 grid = function(interval){
 	engage();
 	if (!interval) {
