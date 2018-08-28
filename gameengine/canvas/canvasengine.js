@@ -671,6 +671,21 @@ random = function(low, high){ // generate a random number
 randomBoolean = function(){
 	return Math.random() < 0.5;
 },
+randomElement = function(array){ // return a random element from an array
+	return array[random(0, array.length - 1)];
+},
+min = function(array){ // return min element from an array or arguments
+	if (1 < arguments.length) {
+		array = [].slice.call(arguments);
+	}
+	return Math.min.apply(null, array);
+},
+max = function(array){ // return max element from an array or arguments
+	if (1 < arguments.length) {
+		array = [].slice.call(arguments);
+	}
+	return Math.max.apply(null, array);
+},
 isOdd = function(num){
 	return num & 1;
 },
@@ -753,7 +768,7 @@ stroke = function(r, g, b, a){ // outline color for shapes / text color
 		c.strokeStyle = r;
 	}
 },
-strokeWeight = function(thickness){ // no outline for shapes
+strokeWeight = function(thickness){ // outline width for shapes
 	c.doStroke = true;
 	c.lineWidth = thickness;
 	c.lineWidthHalf = thickness / 2;
