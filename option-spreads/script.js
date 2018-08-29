@@ -78,6 +78,8 @@ function loadAvailableDates() {
 }
 
 function loadOptionSpreads(date) {
+    $('#loadedDataHeaderContent, #loadedDataContent').hide();
+    $('#loadingDataHeaderContent, #loadingDataContent').show();
     $.getJSON(`${host}:8005/option-spreads?date=${date}`).done(data => {
         optionSpreads = data;
         const rowItems = _.map(optionSpreads, instrument => {
@@ -92,6 +94,8 @@ function loadOptionSpreads(date) {
         $('#instrumentsList').html(rowItems);
         $('#availableDatesListContent').hide();
         $('#instrumentsListContent').show();
+        $('#loadingDataHeaderContent, #loadingDataContent').hide();
+        $('#loadedDataHeaderContent, #loadedDataContent').show();
     });
 }
 
