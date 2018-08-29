@@ -1,5 +1,5 @@
 const host = document.location.origin;
-var availableDates = [], optionSpreads = [], optionSpreadIndex = null, expirations = [], selectedExpiration = '';
+var availableDates = [], optionSpreads = [], optionSpreadIndex = null, expirations = [], selectedExpiration = '', spreadType = [], spreadListIndex = null;
 
 $(document).ready(() => {
     $('#loadingDataHeaderContent, #loadingDataContent').show();
@@ -8,6 +8,11 @@ $(document).ready(() => {
 
 $('#logo').on('click', () => {
     if ($('#availableDatesListContent').is(':visible')) {
+        return;
+    }
+    if ($('#spreadDetailsListContent').is(':visible')) {
+        $('#spreadDetailsListContent').hide();
+        $('#spreadListContent').show();
         return;
     }
     if ($('#spreadListContent').is(':visible')) {
@@ -40,6 +45,8 @@ $('#reload').on('click', () => {
     optionSpreadIndex = null;
     expirations = [];
     selectedExpiration = '';
+    spreadType = [];
+    spreadListIndex = null;
     $('#availableDatesListContent, #instrumentsListContent, #expirationListContent').hide();
     $('#availableDatesList, #instrumentsList, #expirationList').empty();
     generateOptionSpreads().then(() => {
@@ -127,7 +134,7 @@ $('#expirationList').on('click', '.fullRow', function () {
 });
 
 $('#spreadTypeList').on('click', '.fullRow', function () {
-    const spreadType = $(this).find('span').text().split(' ');
+    spreadType = $(this).find('span').text().split(' ');
     const spreads = optionSpreads[optionSpreadIndex].spreads[selectedExpiration][spreadType[0].toLowerCase()][spreadType[1].toLowerCase()];
     const rowItems = _.map(spreads, spread => {
         return [
@@ -142,4 +149,33 @@ $('#spreadTypeList').on('click', '.fullRow', function () {
     $('#spreadList').html(rowItems);
     $('#spreadTypeListContent').hide();
     $('#spreadListContent').show();
+});
+
+$('#spreadList').on('click', '.fullRow', function () {
+    spreadListIndex = $(this).parent().index();
+    const spread = optionSpreads[optionSpreadIndex].spreads[selectedExpiration][spreadType[0].toLowerCase()][spreadType[1].toLowerCase()][spreadListIndex];
+    $('#spreadDetailsList').html([
+        '<li class="clearfix">',
+        '   <div class="fullRow">',
+        '       <span>' + spread.type + '</span>',
+        '   </div>',
+        '</li>',
+        '<li class="clearfix">',
+        `   <div class="fullRow ${spread.itm ? 'itm' : 'otm'}">`,
+        '       <span>' + spread.description + '</span>',
+        '   </div>',
+        '</li>',
+        '<li class="clearfix">',
+        '   <div>',
+        '       <pre>' + JSON.stringify(spread.legs.long, null, 4) + '</pre>',
+        '   </div>',
+        '</li>',
+        '<li class="clearfix">',
+        '   <div>',
+        '       <pre>' + JSON.stringify(spread.legs.short, null, 4) + '</pre>',
+        '   </div>',
+        '</li>'
+    ].join(''));
+    $('#spreadListContent').hide();
+    $('#spreadDetailsListContent').show();
 });
