@@ -133,7 +133,7 @@ ul#spreadList li {
     border-bottom: 1px solid #ccc;
     color: rgb(53, 53, 53);
     cursor: pointer;
-    line-height: 40px;
+    line-height: 60px;
     -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
     -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
     -o-transition: font-size 0.3s ease, background-color 0.3s ease;
@@ -150,6 +150,7 @@ ul#spreadList li:hover {
 }
 
 .fullRow {
+    font-size: 24px;
     text-align: center;
 }
 
