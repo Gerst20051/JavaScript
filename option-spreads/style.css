@@ -138,12 +138,21 @@ ul#spreadDetailsList li {
     border-bottom: 1px solid #ccc;
     color: rgb(53, 53, 53);
     cursor: pointer;
-    line-height: 100px;
+    line-height: 90px;
     -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
     -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
     -o-transition: font-size 0.3s ease, background-color 0.3s ease;
     -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
     transition: font-size 0.3s ease, background-color 0.3s ease;
+}
+
+ul#spreadList li {
+    border-bottom: 1px solid #000;
+    line-height: 60px;
+}
+
+ul#spreadList li .fullRow {
+    font-size: 24px;
 }
 
 ul#availableDatesList li:hover,
@@ -166,7 +175,7 @@ ul#spreadDetailsList li pre {
 }
 
 .fullRow {
-    font-size: 24px;
+    font-size: 26px;
     text-align: center;
 }
 
