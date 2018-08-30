@@ -15,6 +15,7 @@ body {
 #loadingDataContent,
 #loadedDataContent,
 #noAvailableDates,
+#noAvailableSpreads,
 #availableDatesListContent,
 #instrumentsListContent,
 #expirationListContent,
@@ -108,7 +109,8 @@ body {
 }
 
 #loadingDataContent,
-#noAvailableDates {
+#noAvailableDates,
+#noAvailableSpreads {
     font-size: 40px;
     line-height: 300px;
     height: 300px;
@@ -157,6 +159,10 @@ ul#spreadDetailsList li pre {
     line-height: 22px;
     margin: 0;
     padding: 22px;
+}
+
+#spreadDetailsListContent ul#spreadDetailsList li {
+    cursor: default;
 }
 
 .fullRow {

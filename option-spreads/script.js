@@ -11,12 +11,14 @@ $('#logo').on('click', () => {
         return;
     }
     if ($('#spreadDetailsListContent').is(':visible')) {
-        $('#spreadDetailsListContent').hide();
+        $('#spreadDetailsListContent').hide()
+        $('#spreadDetailsList').empty();
         $('#spreadListContent').show();
         return;
     }
     if ($('#spreadListContent').is(':visible')) {
-        $('#spreadListContent').hide();
+        $('#spreadListContent,#noAvailableSpreads').hide()
+        $('#spreadList').empty();
         $('#spreadTypeListContent').show();
         return;
     }
@@ -26,12 +28,14 @@ $('#logo').on('click', () => {
         return;
     }
     if ($('#expirationListContent').is(':visible')) {
-        $('#expirationListContent').hide();
+        $('#expirationListContent').hide()
+        $('#expirationList').empty();
         $('#instrumentsListContent').show();
         return;
     }
     if ($('#instrumentsListContent').is(':visible')) {
-        $('#instrumentsListContent').hide();
+        $('#instrumentsListContent').hide()
+        $('#instrumentsList').empty();
         $('#availableDatesListContent').show();
         return;
     }
@@ -136,12 +140,17 @@ $('#expirationList').on('click', '.fullRow', function () {
 $('#spreadTypeList').on('click', '.fullRow', function () {
     spreadType = $(this).find('span').text().split(' ');
     const spreads = optionSpreads[optionSpreadIndex].spreads[selectedExpiration][spreadType[0].toLowerCase()][spreadType[1].toLowerCase()];
+    $('#noAvailableSpreads').toggle(!spreads.length);
     const rowItems = _.map(spreads, spread => {
         return [
             '<li class="clearfix">',
             `   <div class="fullRow ${spread.itm ? 'itm' : 'otm'}">`,
-            '       <span><b>' + spread.description + '</b></span><br>',
-            `       <span>${spread.itm ? 'ITM' : 'OTM'} ${spread.itm_percentage}%</span><br>`,
+            '       <span><b>' + spread.name + '</b></span><br>',
+            '       <span>Mark Price: ' + spread.mark_price_details.description + '</span><br>',
+            '       <span>Market Price: ' + spread.market_price_details.description + '</span><br>',
+            '       <span>' + spread.market_price_details.max_contracts_at_market.description + '</span><br>',
+            '       <span>' + spread.market_price_details.max_contracts_at_market.description2 + '</span><br>',
+            `       <span><b>${spread.itm ? 'ITM' : 'OTM'} ${spread.itm_percentage}%</b></span><br>`,
             '   </div>',
             '</li>'
         ].join('');
@@ -157,12 +166,12 @@ $('#spreadList').on('click', '.fullRow', function () {
     $('#spreadDetailsList').html([
         '<li class="clearfix">',
         '   <div class="fullRow">',
-        '       <span>' + spread.type + '</span>',
+        `       <span>${optionSpreads[optionSpreadIndex].symbol} @ ${optionSpreads[optionSpreadIndex].quote.last_trade_price}</span>`,
         '   </div>',
         '</li>',
         '<li class="clearfix">',
         `   <div class="fullRow ${spread.itm ? 'itm' : 'otm'}">`,
-        '       <span>' + spread.description + '</span>',
+        '       <span>' + spread.name + '</span>',
         '   </div>',
         '</li>',
         '<li class="clearfix">',
@@ -177,5 +186,6 @@ $('#spreadList').on('click', '.fullRow', function () {
         '</li>'
     ].join(''));
     $('#spreadListContent').hide();
+    window.scrollTo(0, 0);
     $('#spreadDetailsListContent').show();
 });
