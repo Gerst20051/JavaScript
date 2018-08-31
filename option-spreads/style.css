@@ -146,6 +146,11 @@ ul#spreadDetailsList li {
     transition: font-size 0.3s ease, background-color 0.3s ease;
 }
 
+ul#spreadTypeList li {
+    line-height: 50px;
+    padding: 20px 0;
+}
+
 ul#spreadList li {
     border-bottom: 1px solid #000;
     line-height: 60px;
