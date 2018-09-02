@@ -49,7 +49,7 @@ $('#logo').on('click', () => {
     }
 });
 
-$('#reload').on('click', () => {
+$('#reload').on('click', e => {
     $('#loadedDataHeaderContent, #loadedDataContent').hide();
     $('#loadingDataHeaderContent, #loadingDataContent').show();
     availableDates = [];
@@ -61,16 +61,16 @@ $('#reload').on('click', () => {
     spreadListIndex = null;
     $('#availableDatesListContent, #instrumentsListContent, #expirationListContent').hide();
     $('#availableDatesList, #instrumentsList, #expirationList').empty();
-    generateOptionSpreads().then(() => {
+    generateOptionSpreads(e.shiftKey).then(() => {
         loadAvailableDates();
         $('#loadingDataHeaderContent, #loadingDataContent').hide();
         $('#loadedDataHeaderContent, #loadedDataContent').show();
     });
 });
 
-function generateOptionSpreads() {
+function generateOptionSpreads(loadFullChain) {
     return new Promise((resolve, reject) => {
-        $.getJSON(`${host}:8005/option-chains?dont_return_data`).done(resolve).fail(reject);
+        $.getJSON(`${host}:8005/option-chains?dont_return_data${loadFullChain ? '&load_full_chain' : ''}`).done(resolve).fail(reject);
     });
 }
 
