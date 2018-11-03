@@ -1,0 +1,70 @@
+body {
+    background-color: rgb(244, 244, 244);
+    font-family: Roboto, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+#content {
+    height: 100%;
+    width: 100%;
+}
+
+#infoEntry #infoEntryHeader {
+    font-size: 26px;
+    margin: 20px 0;
+}
+
+#infoEntry .inputSection {
+    margin-bottom: 26px;
+}
+
+#infoEntry .sectionHeader {
+    color: rgb(34, 205, 153); /* Robinhood Green */
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+#infoEntry input[type="number"],
+#infoEntry input[type="text"] {
+    border: solid 1px black;
+    border-radius: 0;
+    font-size: 20px;
+    height: 26px;
+    text-align: center;
+    text-transform: uppercase;
+    width: 90px;
+}
+
+#infoEntry button#displayTrade {
+    background-color: rgb(34, 205, 153); /* Robinhood Green */
+    border: 0 none;
+    color: white;
+    font-size: 14px;
+    padding: 10px 0;
+    width: 90px;
+}
+
+#positionDisplay {
+    display: none;
+}
+
+.disable-user-select,
+.disable-user-select:focus {
+    cursor: default;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.disable-user-select::-moz-selection,
+.disable-user-select::selection {
+    background: transparent;
+}
