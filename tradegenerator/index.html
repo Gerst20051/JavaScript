@@ -34,51 +34,102 @@
     <div id="content" class="disable-user-select">
         <div id="infoEntry">
             <div id="infoEntryHeader">Trade Generator</div>
-            <div class="inputSection">
-                <div class="sectionHeader">TICKER</div>
-                <input id="stockSymbol" type="text" autocapitalize="off" autocorrect="off" autocomplete="off" maxlength="5" placeholder="AAPL" spellcheck="false" />
+            <div class="inputRow clearfix">
+                <div class="inputSection">
+                    <div class="sectionHeader">TICKER</div>
+                    <input id="ticker" type="text" autocapitalize="off" autocorrect="off" autocomplete="off" maxlength="5" placeholder="AAPL" spellcheck="false" />
+                </div>
+                <div class="inputSection">
+                    <div class="sectionHeader">CONTRACTS</div>
+                    <input id="numberOfContracts" type="number" autocapitalize="off" autocorrect="off" autocomplete="off" max="1000" min="0" placeholder="10" spellcheck="false" />
+                </div>
             </div>
-            <div class="inputSection">
-                <div class="sectionHeader">OPTION TYPE</div>
-                <input id="typeCallsRadio" type="radio" name="type-calls-or-puts" value="calls" checked />
-                <label for="typeCallsRadio">Calls</label>
-                <input id="typePutsRadio" type="radio" name="type-calls-or-puts" value="puts" />
-                <label for="typePutsRadio">Puts</label>
+            <!-- TODO: Add Expiration Date -->
+            <div class="inputRow clearfix">
+                <div class="inputSection">
+                    <div class="sectionHeader">OPTION TYPE</div>
+                    <input id="typeCallsRadio" type="radio" name="type-calls-or-puts" value="calls" checked />
+                    <label for="typeCallsRadio">Calls</label>
+                    <input id="typePutsRadio" type="radio" name="type-calls-or-puts" value="puts" />
+                    <label for="typePutsRadio">Puts</label>
+                </div>
             </div>
-            <div class="inputSection">
-                <div class="sectionHeader">LEG 1 STRIKE</div>
-                <input id="leg1Strike" type="number" autocapitalize="off" autocorrect="off" autocomplete="off" max="5000" min="0" placeholder="210" spellcheck="false" />
-                <br>
-                <br>
-                <input id="leg1BuyRadio" type="radio" name="leg-1-buy-or-sell" value="buy" checked />
-                <label for="leg1BuyRadio">Buy</label>
-                <input id="leg1SellRadio" type="radio" name="leg-1-buy-or-sell" value="sell" />
-                <label for="leg1SellRadio">Sell</label>
+            <div class="inputRow clearfix">
+                <div class="inputSection">
+                    <div class="sectionHeader">LEG 1 STRIKE</div>
+                    <input id="leg1Strike" type="number" autocapitalize="off" autocorrect="off" autocomplete="off" max="5000" min="0" placeholder="210" spellcheck="false" />
+                    <br>
+                    <br>
+                    <input id="leg1BuyRadio" type="radio" name="leg-1-buy-or-sell" value="buy" checked />
+                    <label for="leg1BuyRadio">Buy</label>
+                    <input id="leg1SellRadio" type="radio" name="leg-1-buy-or-sell" value="sell" />
+                    <label for="leg1SellRadio">Sell</label>
+                </div>
+                <div class="inputSection">
+                    <div class="sectionHeader">LEG 2 STRIKE</div>
+                    <input id="leg2Strike" type="number" autocapitalize="off" autocorrect="off" autocomplete="off" max="5000" min="0" spellcheck="false" />
+                    <br>
+                    <br>
+                    <input id="leg2BuyRadio" type="radio" name="leg-2-buy-or-sell" value="buy" checked />
+                    <label for="leg2BuyRadio">Buy</label>
+                    <input id="leg2SellRadio" type="radio" name="leg-2-buy-or-sell" value="sell" />
+                    <label for="leg2SellRadio">Sell</label>
+                </div>
             </div>
-            <div class="inputSection">
-                <div class="sectionHeader">LEG 2 STRIKE</div>
-                <input id="leg2Strike" type="number" autocapitalize="off" autocorrect="off" autocomplete="off" max="5000" min="0" spellcheck="false" />
-                <br>
-                <br>
-                <input id="leg2BuyRadio" type="radio" name="leg-2-buy-or-sell" value="buy" checked />
-                <label for="leg2BuyRadio">Buy</label>
-                <input id="leg2SellRadio" type="radio" name="leg-2-buy-or-sell" value="sell" />
-                <label for="leg2SellRadio">Sell</label>
-            </div>
-            <div class="inputSection">
-                <div class="sectionHeader">COST / CREDIT</div>
-                <input id="averageCostOrCredit" type="number" autocapitalize="off" autocorrect="off" autocomplete="off" max="999" min="0" placeholder="3.80" spellcheck="false" />
-            </div>
-            <div class="inputSection">
-                <div class="sectionHeader">CURRENT PRICE</div>
-                <input id="currentPrice" type="number" autocapitalize="off" autocorrect="off" autocomplete="off" max="999" min="0" placeholder="4.60" spellcheck="false" />
+            <div class="inputRow clearfix">
+                <div class="inputSection">
+                    <div class="sectionHeader">COST / CREDIT</div>
+                    <input id="averageCostOrCredit" type="number" autocapitalize="off" autocorrect="off" autocomplete="off" max="999" min="0" placeholder="3.80" spellcheck="false" />
+                </div>
+                <div class="inputSection">
+                    <div class="sectionHeader">CURRENT PRICE</div>
+                    <input id="currentPrice" type="number" autocapitalize="off" autocorrect="off" autocomplete="off" max="999" min="0" placeholder="4.60" spellcheck="false" />
+                </div>
             </div>
             <div class="inputSection">
                 <button id="displayTrade">Display</button>
             </div>
         </div>
         <div id="positionDisplay">
-
+            <!-- TODO: Put OPTION NAME Into Header -->
+            <!-- HEADER Contents: { Icon, Option Name, View TICKER Link } -->
+            <div id="optionName" class="displaySection">
+                <div class="sectionHeader">OPTION NAME</div>
+                <div class="sectionValue"></div>
+            </div>
+            <div id="numberOfContracts" class="displaySection">
+                <div class="sectionHeader">CONTRACTS</div>
+                <div class="sectionValue"></div>
+            </div>
+            <div id="equity" class="displaySection">
+                <div class="sectionHeader">EQUITY</div>
+                <div class="sectionValue"></div>
+            </div>
+            <div id="breakEvenPrice" class="displaySection">
+                <div class="sectionHeader">{TICKER} BREAK EVEN PRICE</div>
+                <div class="sectionValue"></div>
+            </div>
+            <div id="expirationDate" class="displaySection">
+                <div class="sectionHeader">EXP DATE</div>
+                <div class="sectionValue"></div>
+            </div>
+            <div id="currentPrice" class="displaySection">
+                <div class="sectionHeader">CURRENT PRICE</div>
+                <div class="sectionValue"></div>
+            </div>
+            <div id="averageCostOrCredit" class="displaySection">
+                <!-- TODO: Dynamic Label Cost / Credit -->
+                <div class="sectionHeader">AVG COST</div>
+                <div class="sectionValue"></div>
+            </div>
+            <div id="todaysReturn" class="displaySection">
+                <div class="sectionHeader">TODAY'S RETURN</div>
+                <div class="sectionValue"></div>
+            </div>
+            <div id="totalReturn" class="displaySection">
+                <div class="sectionHeader">TOTAL RETURN</div>
+                <div class="sectionValue"></div>
+            </div>
         </div>
     </div>
     <script src="script.js"></script>
