@@ -22,15 +22,18 @@ function nextFriday() {
     return d;
 }
 
+function setDefaultExpirationDate() {
+    const nextFridayDate = nextFriday();
+    $('#expirationDate').val((nextFridayDate.getMonth() + 1) + '/' + nextFridayDate.getDate());
+}
+
 $(document).ready(() => {
+    setDefaultExpirationDate();
+
     $('#displayTrade').click(() => {
-        // TODO: Validate Inputs
-
-        $('#infoEntry, #positionDisplay').toggle();
-
         const ticker = $('#ticker').val().toUpperCase();
         const numberOfContracts = $('#numberOfContracts').val();
-        const expirationDate = '11/9'; // TODO: Get From Input?
+        const expirationDate = $('#expirationDate').val();
         const typeCallsOrPuts = $('input[name="type-calls-or-puts"]:checked').val();
         const leg1Strike = $('#leg1Strike').val();
         const leg1StrikeType = $('input[name="leg-1-buy-or-sell"]:checked').val();
@@ -39,20 +42,26 @@ $(document).ready(() => {
         const averageCostOrCredit = $('#averageCostOrCredit').val();
         const currentPrice = $('#currentPrice').val();
 
-        const nextFridayDate = nextFriday();
+        if (!ticker || !numberOfContracts || !expirationDate || !leg1Strike || !averageCostOrCredit || !currentPrice) {
+            return;
+        }
+
+        $('#infoEntry, #positionDisplay').toggle();
+
         const dollarReturn = numberOfContracts * (currentPrice - averageCostOrCredit) * 100;
-        const percentageReturn = (dollarReturn / (numberOfContracts * averageCostOrCredit * 100)) * 100;
+        const percentageReturn = Math.abs(dollarReturn / (numberOfContracts * averageCostOrCredit * 100)) * 100;
 
         // TODO: Handle Singular / Plural (Call vs. Calls) (Put vs. Puts) Plural When Is A Spread / Has Leg 2
-        $('#optionName .sectionValue').text(`${ticker} $${leg1Strike} ${capitalize(typeCallsOrPuts)}`);
-        $('#numberOfContracts .sectionValue').text(`+${numberOfContracts}`); // TODO: Number Of Contracts Could Be Negative?
-        $('#equity .sectionValue').text(formatter.format(numberOfContracts * currentPrice * 100));
-        $('#breakEvenPrice .sectionHeader').text($('#breakEvenPrice .sectionHeader').text().replace('{TICKER}', ticker));
-        $('#breakEvenPrice .sectionValue').text(formatter.format(leg1Strike - averageCostOrCredit));
-        $('#expirationDate .sectionValue').text((nextFridayDate.getMonth() + 1) + '/' + nextFridayDate.getDate());
-        $('#currentPrice .sectionValue').text(`${formatter.format(currentPrice)}`);
-        $('#averageCostOrCredit .sectionValue').text(`${formatter.format(averageCostOrCredit)}`);
-        $('#todaysReturn .sectionValue').text(`${formatter.format(dollarReturn)} (+${percentageReturn.toFixed(2)}%)`);
-        $('#totalReturn .sectionValue').text(`${formatter.format(dollarReturn)} (+${percentageReturn.toFixed(2)}%)`);
+        $('#optionNameDisplay .sectionValue').text(`${ticker} $${leg1Strike} ${capitalize(typeCallsOrPuts)}`);
+        $('#numberOfContractsDisplay .sectionValue').text(`${averageCostOrCredit < 0 ? '-' : '+'}${numberOfContracts}`); // TODO: Number Of Contracts Could Be Negative?
+        $('#equityDisplay .sectionValue').text(formatter.format(numberOfContracts * currentPrice * 100));
+        $('#breakEvenPriceDisplay .sectionHeader').text($('#breakEvenPriceDisplay .sectionHeader').text().replace('{TICKER}', ticker));
+        $('#breakEvenPriceDisplay .sectionValue').text(formatter.format(leg1Strike - averageCostOrCredit));
+        $('#expirationDateDisplay .sectionValue').text(expirationDate);
+        $('#currentPriceDisplay .sectionValue').text(`${formatter.format(currentPrice)}`);
+        $('#averageCostOrCreditDisplay .sectionHeader').text($('#averageCostOrCreditDisplay .sectionHeader').text().replace('{COST_OR_CREDIT}', averageCostOrCredit < 0 ? 'CREDIT' : 'COST'));
+        $('#averageCostOrCreditDisplay .sectionValue').text(`${formatter.format(averageCostOrCredit)}`);
+        $('#todaysReturnDisplay .sectionValue').text(`${formatter.format(dollarReturn)} (+${percentageReturn.toFixed(2)}%)`);
+        $('#totalReturnDisplay .sectionValue').text(`${formatter.format(dollarReturn)} (+${percentageReturn.toFixed(2)}%)`);
     });
 });
