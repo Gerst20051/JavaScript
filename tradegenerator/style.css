@@ -1,6 +1,16 @@
+@font-face {
+    font-family: DINPro;
+    src: url('fonts/DINPro.otf');
+}
+
+@font-face {
+    font-family: DINPro-Light;
+    src: url('fonts/DINPro-Light.otf');
+}
+
 body {
-    background-color: rgb(244, 244, 244);
-    font-family: Roboto, sans-serif;
+    background-color: white;
+    font-family: DINPro, Roboto, sans-serif;
     margin: 0;
     padding: 0;
     text-align: center;
@@ -58,19 +68,104 @@ body {
     display: none;
 }
 
-#positionDisplay .displaySection {
-    margin-bottom: 26px;
+#positionDisplay #dragBar {
+    background-color: #D4D8DC; /* Robinhood Gray */
+    border-radius: 5px;
+    height: 5px;
+    margin: 9px auto 0;
+    width: 45px;
 }
 
-#positionDisplay .sectionHeader {
-    color: rgb(34, 205, 153); /* Robinhood Green */
-    font-size: 16px;
+#positionDisplay #headerDisplay {
+    height: 30px;
+    margin-top: 21px;
+}
+
+#positionDisplay #headerDisplay > div {
+    display: inline-block;
+    font-size: 18px;
+    position: absolute;
+}
+
+#positionDisplay #headerDisplay #iconContainer {
+    left: 15px;
+}
+
+#positionDisplay #headerDisplay #iconContainer img {
+    margin-top: 3px;
+}
+
+#positionDisplay #headerDisplay #optionName {
+    left: 0;
+    right: 0;
+}
+
+#positionDisplay #headerDisplay #viewTickerLink {
+    color: #22CD99; /* Robinhood Green */
+    right: 15px;
+}
+
+#yourPositionHeaderContainer {
+    border-bottom: 0.5px solid #D0D5D8; /* Robinhood Gray */
+    margin: 14px 0 16px 15px;
+    padding-bottom: 15px;
+    text-align: left;
+}
+
+#yourPositionHeader {
+    font-size: 23px;
     font-weight: bold;
-    margin-bottom: 8px;
 }
 
-#positionDisplay .sectionValue {
+#positionDisplay .displayRow {
+    margin-left: 15px;
+    margin-bottom: 17px;
+    text-align: left;
+}
 
+#positionDisplay .displayRow .sectionHeader {
+    color: #8E9BA4; /* Robinhood Gray */
+    font-size: 14px;
+    margin-bottom: 2px;
+}
+
+#positionDisplay .displayRow .sectionValue {
+    font-family: DINPro-Light, Roboto, sans-serif;
+    font-size: 23px;
+}
+
+#positionDisplay .displaySection {
+    display: inline-block;
+    width: 49%;
+}
+
+#positionDisplay .displaySectionRow {
+    border-bottom: 0.5px solid #D0D5D8; /* Robinhood Gray */
+    margin-left: 15px;
+    margin-right: 15px;
+    padding-bottom: 10.5px;
+    padding-top: 2px;
+    text-align: left;
+}
+
+#positionDisplay .displaySectionRow > div {
+    display: inline-block;
+}
+
+#positionDisplay .displaySectionRow .sectionHeader {
+    color: #8E9BA4; /* Robinhood Gray */
+    font-size: 14px;
+}
+
+#positionDisplay .displaySectionRow .sectionValue {
+    font-family: DINPro-Light, Roboto, sans-serif;
+    font-size: 17px;
+    position: absolute;
+    right: 15px;
+}
+
+#positionDisplay #totalReturnDisplay {
+    margin-top: 9px;
 }
 
 .clearfix:after {

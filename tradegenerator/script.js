@@ -34,7 +34,7 @@ $(document).ready(() => {
         const ticker = $('#ticker').val().toUpperCase();
         const numberOfContracts = $('#numberOfContracts').val();
         const expirationDate = $('#expirationDate').val();
-        const typeCallsOrPuts = $('input[name="type-calls-or-puts"]:checked').val();
+        const typeCallsOrPuts = capitalize($('input[name="type-calls-or-puts"]:checked').val());
         const leg1Strike = $('#leg1Strike').val();
         const leg1StrikeType = $('input[name="leg-1-buy-or-sell"]:checked').val();
         const leg2Strike = $('#leg2Strike').val();
@@ -51,9 +51,9 @@ $(document).ready(() => {
         const dollarReturn = numberOfContracts * (currentPrice - averageCostOrCredit) * 100;
         const percentageReturn = Math.abs(dollarReturn / (numberOfContracts * averageCostOrCredit * 100)) * 100;
 
-        // TODO: Handle Singular / Plural (Call vs. Calls) (Put vs. Puts) Plural When Is A Spread / Has Leg 2
-        $('#optionNameDisplay .sectionValue').text(`${ticker} $${leg1Strike} ${capitalize(typeCallsOrPuts)}`);
-        $('#numberOfContractsDisplay .sectionValue').text(`${averageCostOrCredit < 0 ? '-' : '+'}${numberOfContracts}`); // TODO: Number Of Contracts Could Be Negative?
+        $('#headerDisplay #optionName').text(`${ticker} $${leg1Strike} ${leg2Strike ? typeCallsOrPuts : typeCallsOrPuts.slice(0, - 1)}`);
+        $('#headerDisplay #viewTickerLink').text($('#headerDisplay #viewTickerLink').text().replace('{TICKER}', ticker));
+        $('#numberOfContractsDisplay .sectionValue').text(`${averageCostOrCredit < 0 ? '-' : '+'}${numberOfContracts}`);
         $('#equityDisplay .sectionValue').text(formatter.format(numberOfContracts * currentPrice * 100));
         $('#breakEvenPriceDisplay .sectionHeader').text($('#breakEvenPriceDisplay .sectionHeader').text().replace('{TICKER}', ticker));
         $('#breakEvenPriceDisplay .sectionValue').text(formatter.format(leg1Strike - averageCostOrCredit));
@@ -61,7 +61,7 @@ $(document).ready(() => {
         $('#currentPriceDisplay .sectionValue').text(`${formatter.format(currentPrice)}`);
         $('#averageCostOrCreditDisplay .sectionHeader').text($('#averageCostOrCreditDisplay .sectionHeader').text().replace('{COST_OR_CREDIT}', averageCostOrCredit < 0 ? 'CREDIT' : 'COST'));
         $('#averageCostOrCreditDisplay .sectionValue').text(`${formatter.format(averageCostOrCredit)}`);
-        $('#todaysReturnDisplay .sectionValue').text(`${formatter.format(dollarReturn)} (+${percentageReturn.toFixed(2)}%)`);
-        $('#totalReturnDisplay .sectionValue').text(`${formatter.format(dollarReturn)} (+${percentageReturn.toFixed(2)}%)`);
+        $('#todaysReturnDisplay .sectionValue').html(`<b>+${formatter.format(dollarReturn)}</b> (+${percentageReturn.toFixed(2)}%)`);
+        $('#totalReturnDisplay .sectionValue').html(`<b>+${formatter.format(dollarReturn)}</b> (+${percentageReturn.toFixed(2)}%)`);
     });
 });

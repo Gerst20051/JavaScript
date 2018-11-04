@@ -94,41 +94,50 @@
             </div>
         </div>
         <div id="positionDisplay">
-            <!-- TODO: Put OPTION NAME Into Header -->
-            <!-- HEADER Contents: { Icon, Option Name, View TICKER Link } -->
-            <div id="optionNameDisplay" class="displaySection">
-                <div class="sectionHeader">OPTION NAME</div>
-                <div class="sectionValue"></div>
+            <div id="dragBar"></div>
+            <div id="headerDisplay">
+                <div id="iconContainer"><img src="icon.png" height="16" /></div>
+                <div id="optionName"></div>
+                <div id="viewTickerLink">View {TICKER}</div>
             </div>
-            <div id="numberOfContractsDisplay" class="displaySection">
-                <div class="sectionHeader">CONTRACTS</div>
-                <div class="sectionValue"></div>
+            <div id="yourPositionHeaderContainer">
+                <div id="yourPositionHeader">Your Position</div>
             </div>
-            <div id="equityDisplay" class="displaySection">
-                <div class="sectionHeader">EQUITY</div>
-                <div class="sectionValue"></div>
+            <div class="displayRow clearfix">
+                <div id="numberOfContractsDisplay" class="displaySection">
+                    <div class="sectionHeader">CONTRACTS</div>
+                    <div class="sectionValue"></div>
+                </div>
+                <div id="equityDisplay" class="displaySection">
+                    <div class="sectionHeader">EQUITY</div>
+                    <div class="sectionValue"></div>
+                </div>
             </div>
-            <div id="breakEvenPriceDisplay" class="displaySection">
-                <div class="sectionHeader">{TICKER} BREAK EVEN PRICE</div>
-                <div class="sectionValue"></div>
+            <div class="displayRow clearfix">
+                <div id="breakEvenPriceDisplay" class="displaySection">
+                    <div class="sectionHeader">{TICKER} BREAK EVEN PRICE</div>
+                    <div class="sectionValue"></div>
+                </div>
+                <div id="expirationDateDisplay" class="displaySection">
+                    <div class="sectionHeader">EXP DATE</div>
+                    <div class="sectionValue"></div>
+                </div>
             </div>
-            <div id="expirationDateDisplay" class="displaySection">
-                <div class="sectionHeader">EXP DATE</div>
-                <div class="sectionValue"></div>
+            <div class="displayRow clearfix">
+                <div id="currentPriceDisplay" class="displaySection">
+                    <div class="sectionHeader">CURRENT PRICE</div>
+                    <div class="sectionValue"></div>
+                </div>
+                <div id="averageCostOrCreditDisplay" class="displaySection">
+                    <div class="sectionHeader">AVG {COST_OR_CREDIT}</div>
+                    <div class="sectionValue"></div>
+                </div>
             </div>
-            <div id="currentPriceDisplay" class="displaySection">
-                <div class="sectionHeader">CURRENT PRICE</div>
-                <div class="sectionValue"></div>
-            </div>
-            <div id="averageCostOrCreditDisplay" class="displaySection">
-                <div class="sectionHeader">AVG {COST_OR_CREDIT}</div>
-                <div class="sectionValue"></div>
-            </div>
-            <div id="todaysReturnDisplay" class="displaySection">
+            <div id="todaysReturnDisplay" class="displaySectionRow">
                 <div class="sectionHeader">TODAY'S RETURN</div>
                 <div class="sectionValue"></div>
             </div>
-            <div id="totalReturnDisplay" class="displaySection">
+            <div id="totalReturnDisplay" class="displaySectionRow">
                 <div class="sectionHeader">TOTAL RETURN</div>
                 <div class="sectionValue"></div>
             </div>
