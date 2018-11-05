@@ -158,7 +158,6 @@ body {
 }
 
 #positionDisplay .displaySectionRow .sectionValue {
-    font-family: DINPro-Light, Roboto, sans-serif;
     font-size: 17px;
     position: absolute;
     right: 15px;
