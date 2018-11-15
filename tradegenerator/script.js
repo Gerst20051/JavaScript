@@ -5,6 +5,12 @@ const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
 });
 
+const formatterHeader = new Intl.NumberFormat('en-US', {
+  currency: 'USD',
+  minimumFractionDigits: 0,
+  style: 'currency',
+});
+
 function capitalize(s) {
     return s[0].toUpperCase() + s.slice(1).toLowerCase();
 }
@@ -51,7 +57,7 @@ $(document).ready(() => {
         const dollarReturn = numberOfContracts * (currentPrice - averageCostOrCredit) * 100;
         const percentageReturn = Math.abs(dollarReturn / (numberOfContracts * averageCostOrCredit * 100)) * 100;
 
-        $('#headerDisplay #optionName').text(`${ticker} $${leg1Strike} ${leg2Strike ? `/ $${leg2Strike} ${typeCallsOrPuts}` : typeCallsOrPuts.slice(0, -1)}`);
+        $('#headerDisplay #optionName').text(`${ticker} ${formatterHeader.format(leg1Strike)} ${leg2Strike ? `/ ${formatterHeader.format(leg2Strike)} ${typeCallsOrPuts}` : typeCallsOrPuts.slice(0, -1)}`);
         $('#headerDisplay #viewTickerLink').text($('#headerDisplay #viewTickerLink').text().replace('{TICKER}', ticker));
         $('#numberOfContractsDisplay .sectionHeader').text($('#numberOfContractsDisplay .sectionHeader').text().replace('{PLACEHOLDER}', leg2Strike ? 'AMOUNT' : 'CONTRACTS'));
         $('#numberOfContractsDisplay .sectionValue').text(`${averageCostOrCredit < 0 ? '-' : '+'}${numberOfContracts}`);

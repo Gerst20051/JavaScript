@@ -95,9 +95,18 @@ body {
     margin-top: 3px;
 }
 
-#positionDisplay #headerDisplay #optionName {
+#positionDisplay #headerDisplay #optionNameContainer {
     left: 100px;
     right: 100px;
+}
+
+#positionDisplay #headerDisplay #optionNameContainer #optionName {
+    display: flex;
+    flex-direction: column;
+    height: 42px;
+    justify-content: center;
+    position: relative;
+    top: -10px;
 }
 
 #positionDisplay #headerDisplay #viewTickerLink {
