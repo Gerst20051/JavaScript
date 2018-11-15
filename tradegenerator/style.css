@@ -83,7 +83,7 @@ body {
 
 #positionDisplay #headerDisplay > div {
     display: inline-block;
-    font-size: 18px;
+    font-size: 17px;
     position: absolute;
 }
 
@@ -96,8 +96,8 @@ body {
 }
 
 #positionDisplay #headerDisplay #optionName {
-    left: 0;
-    right: 0;
+    left: 100px;
+    right: 100px;
 }
 
 #positionDisplay #headerDisplay #viewTickerLink {

@@ -51,8 +51,9 @@ $(document).ready(() => {
         const dollarReturn = numberOfContracts * (currentPrice - averageCostOrCredit) * 100;
         const percentageReturn = Math.abs(dollarReturn / (numberOfContracts * averageCostOrCredit * 100)) * 100;
 
-        $('#headerDisplay #optionName').text(`${ticker} $${leg1Strike} ${leg2Strike ? typeCallsOrPuts : typeCallsOrPuts.slice(0, - 1)}`);
+        $('#headerDisplay #optionName').text(`${ticker} $${leg1Strike} ${leg2Strike ? `/ $${leg2Strike} ${typeCallsOrPuts}` : typeCallsOrPuts.slice(0, -1)}`);
         $('#headerDisplay #viewTickerLink').text($('#headerDisplay #viewTickerLink').text().replace('{TICKER}', ticker));
+        $('#numberOfContractsDisplay .sectionHeader').text($('#numberOfContractsDisplay .sectionHeader').text().replace('{PLACEHOLDER}', leg2Strike ? 'AMOUNT' : 'CONTRACTS'));
         $('#numberOfContractsDisplay .sectionValue').text(`${averageCostOrCredit < 0 ? '-' : '+'}${numberOfContracts}`);
         $('#equityDisplay .sectionValue').text(formatter.format(numberOfContracts * currentPrice * 100));
         $('#breakEvenPriceDisplay .sectionHeader').text($('#breakEvenPriceDisplay .sectionHeader').text().replace('{TICKER}', ticker));
