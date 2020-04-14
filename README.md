@@ -1,4 +1,4 @@
 JavaScript
 ==========
 
-Collection of JavaScript scripts
+Collection of JavaScript Scripts
