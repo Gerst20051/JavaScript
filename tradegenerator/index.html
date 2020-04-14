@@ -1,0 +1,157 @@
+<!--
+ ::::::::  :::::::::  ::::::::::     ::: ::::::::::: :::::::::: :::::::::       :::::::::  :::   :::
+:+:    :+: :+:    :+: :+:          :+: :+:   :+:     :+:        :+:    :+:      :+:    :+: :+:   :+: :+:
++:+        +:+    +:+ +:+         +:+   +:+  +:+     +:+        +:+    +:+      +:+    +:+  +:+ +:+
++#+        +#++:++#:  +#++:++#   +#++:++#++: +#+     +#++:++#   +#+    +:+      +#++:++#+    +#++:
++#+        +#+    +#+ +#+        +#+     +#+ +#+     +#+        +#+    +#+      +#+    +#+    +#+
+#+#    #+# #+#    #+# #+#        #+#     #+# #+#     #+#        #+#    #+#      #+#    #+#    #+#    #+#
+ ########  ###    ### ########## ###     ### ###     ########## #########       #########     ###
+
+
+
+    :::     ::::    ::: :::::::::  :::::::::  :::::::::: :::       :::       ::::::::  :::::::::: :::::::::   :::::::: :::::::::::
+  :+: :+:   :+:+:   :+: :+:    :+: :+:    :+: :+:        :+:       :+:      :+:    :+: :+:        :+:    :+: :+:    :+:    :+:
+ +:+   +:+  :+:+:+  +:+ +:+    +:+ +:+    +:+ +:+        +:+       +:+      +:+        +:+        +:+    +:+ +:+           +:+
++#++:++#++: +#+ +:+ +#+ +#+    +:+ +#++:++#:  +#++:++#   +#+  +:+  +#+      :#:        +#++:++#   +#++:++#:  +#++:++#++    +#+
++#+     +#+ +#+  +#+#+# +#+    +#+ +#+    +#+ +#+        +#+ +#+#+ +#+      +#+   +#+# +#+        +#+    +#+        +#+    +#+
+#+#     #+# #+#   #+#+# #+#    #+# #+#    #+# #+#         #+#+# #+#+#       #+#    #+# #+#        #+#    #+# #+#    #+#    #+#
+###     ### ###    #### #########  ###    ### ##########   ###   ###         ########  ########## ###    ###  ########     ###
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Trade Generator</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.min.js"></script>
+    <script>__ = _.noConflict()</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="style.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="content" class="disable-user-select">
+        <div id="infoEntry">
+            <div id="infoEntryHeader">Trade Generator</div>
+            <div class="inputRow clearfix">
+                <div class="inputSection">
+                    <div class="sectionHeader">TICKER</div>
+                    <input id="ticker" type="text" autocapitalize="off" autocorrect="off" autocomplete="off" maxlength="5" placeholder="AAPL" spellcheck="false" />
+                </div>
+                <div class="inputSection">
+                    <div class="sectionHeader">EXP DATE</div>
+                    <input id="expirationDate" type="text" autocapitalize="off" autocorrect="off" autocomplete="off" maxlength="5"  spellcheck="false" />
+                </div>
+            </div>
+            <div class="inputRow clearfix">
+                <div class="inputSection">
+                    <div class="sectionHeader">CONTRACTS</div>
+                    <input id="numberOfContracts" type="number" autocapitalize="off" autocorrect="off" autocomplete="off" max="1000" min="0" placeholder="10" spellcheck="false" />
+                </div>
+                <div class="inputSection">
+                    <div class="sectionHeader">OPTION TYPE</div>
+                    <input id="typeCallsRadio" type="radio" name="type-calls-or-puts" value="calls" checked />
+                    <label for="typeCallsRadio">Calls</label>
+                    <input id="typePutsRadio" type="radio" name="type-calls-or-puts" value="puts" />
+                    <label for="typePutsRadio">Puts</label>
+                </div>
+            </div>
+            <div class="inputRow clearfix">
+                <div class="inputSection">
+                    <div class="sectionHeader">LEG 1 STRIKE</div>
+                    <input id="leg1Strike" type="number" autocapitalize="off" autocorrect="off" autocomplete="off" max="5000" min="0" placeholder="210" spellcheck="false" />
+                    <br>
+                    <br>
+                    <input id="leg1BuyRadio" type="radio" name="leg-1-buy-or-sell" value="buy" checked />
+                    <label for="leg1BuyRadio">Buy</label>
+                    <input id="leg1SellRadio" type="radio" name="leg-1-buy-or-sell" value="sell" />
+                    <label for="leg1SellRadio">Sell</label>
+                </div>
+                <div class="inputSection">
+                    <div class="sectionHeader">LEG 2 STRIKE</div>
+                    <input id="leg2Strike" type="number" autocapitalize="off" autocorrect="off" autocomplete="off" max="5000" min="0" spellcheck="false" />
+                    <br>
+                    <br>
+                    <input id="leg2BuyRadio" type="radio" name="leg-2-buy-or-sell" value="buy" />
+                    <label for="leg2BuyRadio">Buy</label>
+                    <input id="leg2SellRadio" type="radio" name="leg-2-buy-or-sell" value="sell" checked />
+                    <label for="leg2SellRadio">Sell</label>
+                </div>
+            </div>
+            <div class="inputRow clearfix">
+                <div class="inputSection">
+                    <div class="sectionHeader">COST / CREDIT</div>
+                    <input id="averageCostOrCredit" type="number" autocapitalize="off" autocorrect="off" autocomplete="off" max="999" min="0" placeholder="3.80" spellcheck="false" />
+                </div>
+                <div class="inputSection">
+                    <div class="sectionHeader">CURRENT PRICE</div>
+                    <input id="currentPrice" type="number" autocapitalize="off" autocorrect="off" autocomplete="off" max="999" min="0" placeholder="4.60" spellcheck="false" />
+                </div>
+            </div>
+            <div class="inputSection">
+                <button id="displayTrade">Display</button>
+            </div>
+        </div>
+        <div id="positionDisplay">
+            <div id="dragBar"></div>
+            <div id="headerDisplay">
+                <div id="iconContainer"><img src="icon.png" height="16" /></div>
+                <div id="optionNameContainer"><div id="optionName"></div></div>
+                <div id="viewTickerLink">View {TICKER}</div>
+            </div>
+            <div id="yourPositionHeaderContainer">
+                <div id="yourPositionHeader">Your Position</div>
+            </div>
+            <div class="displayRow clearfix">
+                <div id="numberOfContractsDisplay" class="displaySection">
+                    <div class="sectionHeader">{PLACEHOLDER}</div>
+                    <div class="sectionValue"></div>
+                </div>
+                <div id="equityDisplay" class="displaySection">
+                    <div class="sectionHeader">EQUITY</div>
+                    <div class="sectionValue"></div>
+                </div>
+            </div>
+            <div class="displayRow clearfix">
+                <div id="breakEvenPriceDisplay" class="displaySection">
+                    <div class="sectionHeader">{TICKER} BREAK EVEN PRICE</div>
+                    <div class="sectionValue"></div>
+                </div>
+                <div id="expirationDateDisplay" class="displaySection">
+                    <div class="sectionHeader">EXP DATE</div>
+                    <div class="sectionValue"></div>
+                </div>
+            </div>
+            <div class="displayRow clearfix">
+                <div id="currentPriceDisplay" class="displaySection">
+                    <div class="sectionHeader">CURRENT PRICE</div>
+                    <div class="sectionValue"></div>
+                </div>
+                <div id="averageCostOrCreditDisplay" class="displaySection">
+                    <div class="sectionHeader">AVG {COST_OR_CREDIT}</div>
+                    <div class="sectionValue"></div>
+                </div>
+            </div>
+            <div id="todaysReturnDisplay" class="displaySectionRow">
+                <div class="sectionHeader">TODAY'S RETURN</div>
+                <div class="sectionValue"></div>
+            </div>
+            <div id="totalReturnDisplay" class="displaySectionRow">
+                <div class="sectionHeader">TOTAL RETURN</div>
+                <div class="sectionValue"></div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-42786295-1', 'hnswave.co');
+        ga('send', 'pageview');
+    </script>
+</body>
+</html>

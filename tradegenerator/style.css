@@ -1,0 +1,201 @@
+@font-face {
+    font-family: DINPro;
+    src: url('fonts/DINPro.otf');
+}
+
+@font-face {
+    font-family: DINPro-Light;
+    src: url('fonts/DINPro-Light.otf');
+}
+
+body {
+    background-color: white;
+    font-family: DINPro, Roboto, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+#content {
+    height: 100%;
+    width: 100%;
+}
+
+#infoEntry #infoEntryHeader {
+    font-size: 26px;
+    margin: 20px 0;
+}
+
+#infoEntry .inputRow {
+    text-align: center;
+}
+
+#infoEntry .inputSection {
+    display: inline-block;
+    margin-bottom: 26px;
+    width: 140px;
+}
+
+#infoEntry .sectionHeader {
+    color: rgb(34, 205, 153); /* Robinhood Green */
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+#infoEntry input[type="number"],
+#infoEntry input[type="text"] {
+    border: solid 1px black;
+    border-radius: 0;
+    font-size: 20px;
+    height: 26px;
+    text-align: center;
+    text-transform: uppercase;
+    width: 90px;
+}
+
+#infoEntry button#displayTrade {
+    background-color: rgb(34, 205, 153); /* Robinhood Green */
+    border: 0 none;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 10px 0;
+    width: 90px;
+}
+
+#positionDisplay {
+    display: none;
+}
+
+#positionDisplay #dragBar {
+    background-color: #D4D8DC; /* Robinhood Gray */
+    border-radius: 5px;
+    height: 5px;
+    margin: 9px auto 0;
+    width: 45px;
+}
+
+#positionDisplay #headerDisplay {
+    height: 30px;
+    margin-top: 21px;
+}
+
+#positionDisplay #headerDisplay > div {
+    display: inline-block;
+    font-size: 17px;
+    position: absolute;
+}
+
+#positionDisplay #headerDisplay #iconContainer {
+    left: 15px;
+}
+
+#positionDisplay #headerDisplay #iconContainer img {
+    margin-top: 3px;
+}
+
+#positionDisplay #headerDisplay #optionNameContainer {
+    left: 100px;
+    right: 100px;
+}
+
+#positionDisplay #headerDisplay #optionNameContainer #optionName {
+    display: flex;
+    flex-direction: column;
+    height: 42px;
+    justify-content: center;
+    position: relative;
+    top: -10px;
+}
+
+#positionDisplay #headerDisplay #viewTickerLink {
+    color: #22CD99; /* Robinhood Green */
+    right: 15px;
+}
+
+#yourPositionHeaderContainer {
+    border-bottom: 0.5px solid #D0D5D8; /* Robinhood Gray */
+    margin: 14px 0 16px 15px;
+    padding-bottom: 15px;
+    text-align: left;
+}
+
+#yourPositionHeader {
+    font-size: 23px;
+    font-weight: bold;
+}
+
+#positionDisplay .displayRow {
+    margin-left: 15px;
+    margin-bottom: 17px;
+    text-align: left;
+}
+
+#positionDisplay .displayRow .sectionHeader {
+    color: #8E9BA4; /* Robinhood Gray */
+    font-size: 14px;
+    margin-bottom: 2px;
+}
+
+#positionDisplay .displayRow .sectionValue {
+    font-family: DINPro-Light, Roboto, sans-serif;
+    font-size: 23px;
+}
+
+#positionDisplay .displaySection {
+    display: inline-block;
+    width: 49%;
+}
+
+#positionDisplay .displaySectionRow {
+    border-bottom: 0.5px solid #D0D5D8; /* Robinhood Gray */
+    margin-left: 15px;
+    margin-right: 15px;
+    padding-bottom: 10.5px;
+    padding-top: 2px;
+    text-align: left;
+}
+
+#positionDisplay .displaySectionRow > div {
+    display: inline-block;
+}
+
+#positionDisplay .displaySectionRow .sectionHeader {
+    color: #8E9BA4; /* Robinhood Gray */
+    font-size: 14px;
+}
+
+#positionDisplay .displaySectionRow .sectionValue {
+    font-size: 17px;
+    position: absolute;
+    right: 15px;
+}
+
+#positionDisplay #totalReturnDisplay {
+    margin-top: 9px;
+}
+
+.clearfix:after {
+    clear: both;
+    content: "";
+    display: block;
+}
+
+.disable-user-select,
+.disable-user-select:focus {
+    cursor: default;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.disable-user-select::-moz-selection,
+.disable-user-select::selection {
+    background: transparent;
+}
